@@ -1,0 +1,41 @@
+<!-- Encabezado del sistema Rentool -->
+<header class="bg-blue-700 text-white flex items-center justify-between px-6 py-4 shadow-lg">
+  
+  <!-- Logo a la izquierda -->
+  <div class="flex items-center space-x-2">
+    <img src="/logo1.png" alt="Rentool Logo" class="flex h-23 w-33">
+  </div>
+
+  <!-- Nombre centrado con eslogan -->
+  <div class="text-center">
+    <h1 class="text-6xl font-bold tracking-wide">Rentool</h1>
+    <p class="text-1xl text-gray-200 italic">Tu aliado en arriendos de equipos</p>
+  </div>
+
+  <!-- Iconos a la derecha con texto debajo -->
+  <div class="flex space-x-8">
+    <!-- Iniciar Sesión -->
+    <div class="flex flex-col items-center">
+      <button (click)="toggleLogin()" class="hover:text-yellow-300 text-2xl">
+        <i class="pi pi-sign-in"></i>
+      </button>
+      <span class="text-xs mt-1">Iniciar</span>
+    </div>
+
+    <!-- Ayuda -->
+    <div class="flex flex-col items-center">
+      <button (click)="toggleHelp()" class="hover:text-green-300 text-2xl">
+        <i class="pi pi-question-circle"></i>
+      </button>
+      <span class="text-xs mt-1">Ayuda</span>
+    </div>
+
+    <!-- Salida -->
+    <div class="flex flex-col items-center">
+      <button (click)="toggleExit()" class="hover:text-red-300 text-2xl">
+        <i class="pi pi-sign-out"></i>
+      </button>
+      <span class="text-xs mt-1">Salir</span>
+    </div>
+  </div>
+</header>
