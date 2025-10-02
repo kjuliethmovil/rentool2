@@ -1,1 +1,44 @@
-<p>update works!</p>
+<!-- 
+  Archivo: update.html
+  Autor: Karyn Movil Estacio
+  Fecha: 2025-10-02
+  Descripción: Formulario para actualizar un equipo con Reactive Forms y TailwindCSS.
+-->
+
+<div class="flex items-center justify-center min-h-screen bg-gray-50 p-6">
+  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+    <h2 class="text-2xl font-bold mb-6 text-gray-700">Editar Equipo</h2>
+
+    <form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <!-- Campos iguales que en Create -->
+      <div>
+        <label class="block text-sm font-medium text-gray-600">ID Categoría</label>
+        <input pInputText formControlName="category_id" type="number" class="w-full mt-1 p-2 border rounded-md"/>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-600">ID Proveedor</label>
+        <input pInputText formControlName="provider_id" type="number" class="w-full mt-1 p-2 border rounded-md"/>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Nombre</label>
+        <input pInputText formControlName="name" type="text" class="w-full mt-1 p-2 border rounded-md"/>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Descripción</label>
+        <input pInputText formControlName="description" type="text" class="w-full mt-1 p-2 border rounded-md"/>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Estado</label>
+        <input pInputText formControlName="status" type="text" class="w-full mt-1 p-2 border rounded-md"/>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Tarifa Diaria</label>
+        <input pInputText formControlName="daily_rate" type="number" class="w-full mt-1 p-2 border rounded-md"/>
+      </div>
+
+      <div class="flex justify-end mt-6">
+        <button pButton type="submit" [disabled]="equipmentForm.invalid" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md" label="Actualizar" icon="pi pi-save"></button>
+      </div>
+    </form>
+  </div>
+</div>

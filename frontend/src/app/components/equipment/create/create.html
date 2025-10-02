@@ -1,1 +1,55 @@
-<p>create works!</p>
+<!-- 
+  Archivo: create.html
+  Autor: Karyn Movil Estacio
+  Fecha: 2025-10-02
+  Descripción: Formulario para crear un equipo con Reactive Forms y TailwindCSS.
+-->
+
+<div class="flex items-center justify-center min-h-screen bg-gray-50 p-6">
+  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+    <h2 class="text-2xl font-bold mb-6 text-gray-700">Registrar Equipo</h2>
+
+    <form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <!-- Categoría -->
+      <div>
+        <label class="block text-sm font-medium text-gray-600">ID Categoría</label>
+        <input pInputText formControlName="category_id" type="number" placeholder="Ingrese el ID de categoría" class="w-full mt-1 p-2 border rounded-md"/>
+      </div>
+
+      <!-- Proveedor -->
+      <div>
+        <label class="block text-sm font-medium text-gray-600">ID Proveedor</label>
+        <input pInputText formControlName="provider_id" type="number" placeholder="Ingrese el ID del proveedor" class="w-full mt-1 p-2 border rounded-md"/>
+      </div>
+
+      <!-- Nombre -->
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Nombre</label>
+        <input pInputText formControlName="name" type="text" placeholder="Ingrese el nombre del equipo" class="w-full mt-1 p-2 border rounded-md"/>
+      </div>
+
+      <!-- Descripción -->
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Descripción</label>
+        <input pInputText formControlName="description" type="text" placeholder="Ingrese la descripción" class="w-full mt-1 p-2 border rounded-md"/>
+      </div>
+
+      <!-- Estado -->
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Estado</label>
+        <input pInputText formControlName="status" type="text" placeholder="AVAILABLE, UNAVAILABLE o MAINTENANCE" class="w-full mt-1 p-2 border rounded-md"/>
+      </div>
+
+      <!-- Tarifa diaria -->
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Tarifa Diaria</label>
+        <input pInputText formControlName="daily_rate" type="number" placeholder="Ingrese el valor por día" class="w-full mt-1 p-2 border rounded-md"/>
+      </div>
+
+      <!-- Botón -->
+      <div class="flex justify-end mt-6">
+        <button pButton type="submit" [disabled]="equipmentForm.invalid" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md" label="Guardar" icon="pi pi-check"></button>
+      </div>
+    </form>
+  </div>
+</div>

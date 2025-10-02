@@ -1,1 +1,49 @@
-<p>getall works!</p>
+<!-- 
+  Archivo: getall.html
+  Autor: Karyn Movil Estacio
+  Fecha: 2025-10-02
+  Descripción: Vista para listar pagos (Payment) en una tabla responsiva con PrimeNG y TailwindCSS.
+-->
+
+<div class="p-6">
+  <!-- Botón para crear un nuevo pago -->
+  <div class="flex justify-end mb-4">
+    <button
+      pButton
+      type="button"
+      class="p-button p-component bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+      icon="pi pi-plus"
+      label="Nuevo Pago"
+      [routerLink]="['/payment/create']"
+    >
+    </button>
+  </div>
+
+  <!-- Tabla responsiva -->
+  <div class="overflow-x-auto rounded-lg shadow-md">
+    <p-table [value]="payments" stripedRows responsiveLayout="scroll" [tableStyle]="{ 'min-width': '75rem' }">
+      <ng-template pTemplate="header">
+        <tr class="bg-gray-100 text-gray-700 text-sm uppercase tracking-wide">
+          <th class="p-3">Id</th>
+          <th class="p-3">Contrato</th>
+          <th class="p-3">Fecha Pago</th>
+          <th class="p-3">Monto</th>
+          <th class="p-3">Método</th>
+          <th class="p-3">Estado</th>
+          <th class="p-3">Referencia</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-payment>
+        <tr class="border-b hover:bg-gray-50">
+          <td class="p-3">{{ payment.payment_id }}</td>
+          <td class="p-3">{{ payment.contract_id }}</td>
+          <td class="p-3">{{ payment.payment_date | date }}</td>
+          <td class="p-3">{{ payment.amount | currency }}</td>
+          <td class="p-3">{{ payment.method }}</td>
+          <td class="p-3">{{ payment.status }}</td>
+          <td class="p-3">{{ payment.reference }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

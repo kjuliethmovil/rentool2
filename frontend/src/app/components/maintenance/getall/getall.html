@@ -1,1 +1,47 @@
-<p>getall works!</p>
+<!-- 
+  Archivo: getall.html
+  Autor: Karyn Movil Estacio
+  Fecha: 2025-10-02
+  Descripción: Vista para listar mantenimientos en una tabla responsiva con PrimeNG y TailwindCSS.
+-->
+
+<div class="p-6">
+  <!-- Botón para registrar un nuevo mantenimiento -->
+  <div class="flex justify-end mb-4">
+    <button
+      pButton
+      type="button"
+      class="p-button p-component bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+      icon="pi pi-plus"
+      label="Nuevo Mantenimiento"
+      [routerLink]="['/maintenance/create']"
+    >
+    </button>
+  </div>
+
+  <!-- Tabla responsiva -->
+  <div class="overflow-x-auto rounded-lg shadow-md">
+    <p-table [value]="maintenances" stripedRows responsiveLayout="scroll" [tableStyle]="{ 'min-width': '65rem' }">
+      <ng-template pTemplate="header">
+        <tr class="bg-gray-100 text-gray-700 text-sm uppercase tracking-wide">
+          <th class="p-3">Id</th>
+          <th class="p-3">Equipo</th>
+          <th class="p-3">Fecha</th>
+          <th class="p-3">Descripción</th>
+          <th class="p-3">Costo</th>
+          <th class="p-3">Estado</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-maintenance>
+        <tr class="border-b hover:bg-gray-50">
+          <td class="p-3">{{ maintenance.maintenance_id }}</td>
+          <td class="p-3">{{ maintenance.equipment_id }}</td>
+          <td class="p-3">{{ maintenance.date | date }}</td>
+          <td class="p-3">{{ maintenance.description }}</td>
+          <td class="p-3">{{ maintenance.cost | currency }}</td>
+          <td class="p-3">{{ maintenance.status }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

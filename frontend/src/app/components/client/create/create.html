@@ -1,1 +1,90 @@
-<p>create works!</p>
+<!-- 
+  Archivo: create.html
+  Autor: Karyn Movil Estacio
+  Fecha: 2025-10-02
+  Descripción: Formulario para crear un cliente con Reactive Forms y TailwindCSS.
+-->
+
+<div class="flex items-center justify-center min-h-screen bg-gray-50 p-6">
+  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-lg">
+    <!-- Título -->
+    <h2 class="text-2xl font-bold mb-6 text-gray-700">Registrar Cliente</h2>
+
+    <!-- Formulario -->
+    <form [formGroup]="clientForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      
+      <!-- Nombre -->
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Nombre</label>
+        <input
+          pInputText
+          formControlName="first_name"
+          type="text"
+          placeholder="Ingrese el nombre"
+          class="w-full mt-1 p-2 border rounded-md"
+        />
+      </div>
+
+      <!-- Apellido -->
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Apellido</label>
+        <input
+          pInputText
+          formControlName="last_name"
+          type="text"
+          placeholder="Ingrese el apellido"
+          class="w-full mt-1 p-2 border rounded-md"
+        />
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Email</label>
+        <input
+          pInputText
+          formControlName="email"
+          type="email"
+          placeholder="ejemplo@correo.com"
+          class="w-full mt-1 p-2 border rounded-md"
+        />
+      </div>
+
+      <!-- Teléfono -->
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Teléfono</label>
+        <input
+          pInputText
+          formControlName="phone"
+          type="text"
+          placeholder="Ingrese el teléfono"
+          class="w-full mt-1 p-2 border rounded-md"
+        />
+      </div>
+
+      <!-- Dirección -->
+      <div>
+        <label class="block text-sm font-medium text-gray-600">Dirección</label>
+        <input
+          pInputText
+          formControlName="address"
+          type="text"
+          placeholder="Ingrese la dirección"
+          class="w-full mt-1 p-2 border rounded-md"
+        />
+      </div>
+
+      <!-- Botón Guardar -->
+      <div class="flex justify-end mt-6">
+        <button
+          pButton
+          type="submit"
+          [disabled]="clientForm.invalid"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+          label="Guardar"
+          icon="pi pi-check"
+        >
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

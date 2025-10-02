@@ -1,1 +1,49 @@
-<p>getall works!</p>
+<!-- 
+  Archivo: getall.html
+  Autor: Karyn Movil Estacio
+  Fecha: 2025-10-02
+  Descripción: Vista para listar categorías en una tabla responsiva con PrimeNG y TailwindCSS.
+-->
+
+<div class="p-6">
+  <!-- Botón para crear nueva categoría -->
+  <div class="flex justify-end mb-4">
+    <button
+      pButton
+      type="button"
+      class="p-button p-component bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+      icon="pi pi-plus"
+      label="Nueva Categoría"
+      [routerLink]="['/category/create']"
+    >
+    </button>
+  </div>
+
+  <!-- Tabla responsiva -->
+  <div class="overflow-x-auto rounded-lg shadow-md">
+    <p-table
+      [value]="categories"
+      stripedRows
+      responsiveLayout="scroll"
+      [tableStyle]="{ 'min-width': '40rem' }"
+    >
+      <!-- Encabezado de tabla -->
+      <ng-template pTemplate="header">
+        <tr class="bg-gray-100 text-gray-700 text-sm uppercase tracking-wide">
+          <th class="p-3 text-left">Id</th>
+          <th class="p-3 text-left">Nombre</th>
+          <th class="p-3 text-left">Descripción</th>
+        </tr>
+      </ng-template>
+
+      <!-- Cuerpo de tabla -->
+      <ng-template pTemplate="body" let-category>
+        <tr class="border-b hover:bg-gray-50">
+          <td class="p-3">{{ category.category_id }}</td>
+          <td class="p-3">{{ category.name }}</td>
+          <td class="p-3">{{ category.description }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
