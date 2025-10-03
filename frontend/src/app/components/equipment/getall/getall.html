@@ -2,7 +2,8 @@
   Archivo: getall.html
   Autor: Karyn Movil Estacio
   Fecha: 2025-10-02
-  Descripción: Vista para listar equipos en una tabla responsiva con PrimeNG y TailwindCSS.
+  Descripción: Vista para listar equipos en una tabla responsiva con PrimeNG y TailwindCSS,
+  con opciones para crear y editar equipos. Ajustada para que no se desborde.
 -->
 
 <div class="p-6">
@@ -14,29 +15,30 @@
       class="p-button p-component bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
       icon="pi pi-plus"
       label="Nuevo Equipo"
-      [routerLink]="['/equipment/create']"
+      [routerLink]="['/equipos/nuevo']"
     >
     </button>
   </div>
 
   <!-- Tabla responsiva -->
-  <div class="overflow-x-auto rounded-lg shadow-md">
+  <div class="overflow-x-auto rounded-lg shadow-md max-w-full">
     <p-table
       [value]="equipments"
       stripedRows
       responsiveLayout="scroll"
-      [tableStyle]="{ 'min-width': '65rem' }"
+      class="w-full table-fixed"
     >
       <!-- Encabezado -->
       <ng-template pTemplate="header">
         <tr class="bg-gray-100 text-gray-700 text-sm uppercase tracking-wide">
-          <th class="p-3">Id</th>
-          <th class="p-3">Categoría</th>
-          <th class="p-3">Proveedor</th>
-          <th class="p-3">Nombre</th>
-          <th class="p-3">Descripción</th>
-          <th class="p-3">Estado</th>
-          <th class="p-3">Tarifa Diaria</th>
+          <th class="p-3 text-left w-20">Id</th>
+          <th class="p-3 text-left w-1/6">Categoría</th>
+          <th class="p-3 text-left w-1/6">Proveedor</th>
+          <th class="p-3 text-left w-1/5">Nombre</th>
+          <th class="p-3 text-left w-1/3">Descripción</th>
+          <th class="p-3 text-left w-1/6">Estado</th>
+          <th class="p-3 text-left w-1/6">Tarifa Diaria</th>
+          <th class="p-3 text-center w-20">Acciones</th>
         </tr>
       </ng-template>
 
@@ -50,6 +52,15 @@
           <td class="p-3">{{ equipment.description }}</td>
           <td class="p-3">{{ equipment.status }}</td>
           <td class="p-3">{{ equipment.daily_rate | currency }}</td>
+          <td class="p-3 text-center">
+            <!-- Botón editar -->
+            <a
+              [routerLink]="['/equipos/editar', equipment.equipment_id]"
+              class="text-blue-600 hover:text-blue-800"
+            >
+              <i class="pi pi-pencil"></i>
+            </a>
+          </td>
         </tr>
       </ng-template>
     </p-table>

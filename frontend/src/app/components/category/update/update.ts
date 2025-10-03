@@ -23,7 +23,7 @@ import { CategoryI } from '../../../models/category';
   templateUrl: './update.html',
   styleUrls: ['./update.css']
 })
-export class CategoryUpdateComponent implements OnInit {
+export class UpdateCategory implements OnInit {
   categoryForm: FormGroup;
   categoryId!: number;
 

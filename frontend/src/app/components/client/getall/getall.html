@@ -2,7 +2,8 @@
   Archivo: getall.html
   Autor: Karyn Movil Estacio
   Fecha: 2025-10-02
-  Descripción: Vista para listar clientes en una tabla responsiva con PrimeNG y TailwindCSS.
+  Descripción: Vista para listar clientes en una tabla responsiva con PrimeNG y TailwindCSS,
+  con opciones para crear y editar clientes. Ajustada para que no se desborde.
 -->
 
 <div class="p-6">
@@ -14,28 +15,29 @@
       class="p-button p-component bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
       icon="pi pi-plus"
       label="Nuevo Cliente"
-      [routerLink]="['/client/create']"
+      [routerLink]="['/clientes/nuevo']"
     >
     </button>
   </div>
 
   <!-- Tabla responsiva -->
-  <div class="overflow-x-auto rounded-lg shadow-md">
+  <div class="overflow-x-auto rounded-lg shadow-md max-w-full">
     <p-table
       [value]="clients"
       stripedRows
       responsiveLayout="scroll"
-      [tableStyle]="{ 'min-width': '50rem' }"
+      class="w-full table-fixed"
     >
       <!-- Encabezado de tabla -->
       <ng-template pTemplate="header">
         <tr class="bg-gray-100 text-gray-700 text-sm uppercase tracking-wide">
-          <th class="p-3 text-left">Id</th>
-          <th class="p-3 text-left">Nombre</th>
-          <th class="p-3 text-left">Apellido</th>
-          <th class="p-3 text-left">Email</th>
-          <th class="p-3 text-left">Teléfono</th>
-          <th class="p-3 text-left">Dirección</th>
+          <th class="p-3 text-left w-20">Id</th>
+          <th class="p-3 text-left w-1/6">Nombre</th>
+          <th class="p-3 text-left w-1/6">Apellido</th>
+          <th class="p-3 text-left w-1/4">Email</th>
+          <th class="p-3 text-left w-1/6">Teléfono</th>
+          <th class="p-3 text-left w-1/4">Dirección</th>
+          <th class="p-3 text-center w-20">Acciones</th>
         </tr>
       </ng-template>
 
@@ -45,9 +47,18 @@
           <td class="p-3">{{ client.client_id }}</td>
           <td class="p-3">{{ client.first_name }}</td>
           <td class="p-3">{{ client.last_name }}</td>
-          <td class="p-3">{{ client.email }}</td>
-          <td class="p-3">{{ client.phone }}</td>
-          <td class="p-3">{{ client.address }}</td>
+          <td class="p-3 truncate">{{ client.email }}</td>
+          <td class="p-3 whitespace-nowrap">{{ client.phone }}</td>
+          <td class="p-3 truncate">{{ client.address }}</td>
+          <td class="p-3 text-center">
+            <!-- Botón editar -->
+            <a
+              [routerLink]="['/clientes/editar', client.client_id]"
+              class="text-blue-600 hover:text-blue-800"
+            >
+              <i class="pi pi-pencil"></i>
+            </a>
+          </td>
         </tr>
       </ng-template>
     </p-table>

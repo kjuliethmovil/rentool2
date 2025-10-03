@@ -2,7 +2,8 @@
   Archivo: getall.html
   Autor: Karyn Movil Estacio
   Fecha: 2025-10-02
-  Descripción: Vista para listar proveedores en una tabla responsiva con PrimeNG y TailwindCSS.
+  Descripción: Vista para listar proveedores en una tabla responsiva con PrimeNG y TailwindCSS,
+  con opciones para crear y editar proveedores. Ajustada para que no se desborde.
 -->
 
 <div class="p-6">
@@ -14,27 +15,28 @@
       class="p-button p-component bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
       icon="pi pi-plus"
       label="Nuevo Proveedor"
-      [routerLink]="['/provider/create']"
+      [routerLink]="['/proveedores/nuevo']"
     >
     </button>
   </div>
 
   <!-- Tabla responsiva -->
-  <div class="overflow-x-auto rounded-lg shadow-md">
+  <div class="overflow-x-auto rounded-lg shadow-md max-w-full">
     <p-table
       [value]="providers"
       stripedRows
       responsiveLayout="scroll"
-      [tableStyle]="{ 'min-width': '50rem' }"
+      class="w-full table-fixed"
     >
       <!-- Encabezado de tabla -->
       <ng-template pTemplate="header">
         <tr class="bg-gray-100 text-gray-700 text-sm uppercase tracking-wide">
-          <th class="p-3 text-left">Id</th>
-          <th class="p-3 text-left">Nombre</th>
-          <th class="p-3 text-left">Email</th>
-          <th class="p-3 text-left">Teléfono</th>
-          <th class="p-3 text-left">Dirección</th>
+          <th class="p-3 text-left w-20">Id</th>
+          <th class="p-3 text-left w-1/6">Nombre</th>
+          <th class="p-3 text-left w-1/4">Email</th>
+          <th class="p-3 text-left w-1/6">Teléfono</th>
+          <th class="p-3 text-left w-1/4">Dirección</th>
+          <th class="p-3 text-center w-20">Acciones</th>
         </tr>
       </ng-template>
 
@@ -46,6 +48,15 @@
           <td class="p-3">{{ provider.email }}</td>
           <td class="p-3">{{ provider.phone }}</td>
           <td class="p-3">{{ provider.address }}</td>
+          <td class="p-3 text-center">
+            <!-- Botón editar -->
+            <a
+              [routerLink]="['/proveedores/editar', provider.provider_id]"
+              class="text-blue-600 hover:text-blue-800"
+            >
+              <i class="pi pi-pencil"></i>
+            </a>
+          </td>
         </tr>
       </ng-template>
     </p-table>

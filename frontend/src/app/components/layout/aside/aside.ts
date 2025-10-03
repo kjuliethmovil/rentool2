@@ -42,7 +42,7 @@ export class Aside implements OnInit {
         icon: 'pi pi-fw pi-briefcase',
         items: [
           { label: 'Contratos', icon: 'pi pi-file-edit', routerLink: '/contratos' },
-          { label: 'Detalles de Contratos', icon: 'pi pi-clone', routerLink: '/contratos/detalles' },
+          { label: 'Detalles de Contratos', icon: 'pi pi-clone', routerLink: '/detalles-contrato' },
           { label: 'Garantías', icon: 'pi pi-shield', routerLink: '/garantias' },
           { label: 'Entregas', icon: 'pi pi-send', routerLink: '/entregas' },
           { label: 'Devoluciones', icon: 'pi pi-undo', routerLink: '/devoluciones' }
