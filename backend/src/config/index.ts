@@ -1,6 +1,11 @@
-import express, { Application } from "express";
+/**
+ * Archivo: src/config/index.ts
+ * Autor: Karyn Movil Estacio
+ * Descripción: Configuración principal de la aplicación Express.
+ */
 
-// Load environment variables from the .env file
+import express, { Application } from "express";
+import morgan from "morgan";
 
 export class App {
   public app: Application;
@@ -8,18 +13,24 @@ export class App {
   constructor(private port?: number | string) {
     this.app = express();
     this.settings();
-
+    this.middlewares();
   }
 
-  // Application settings
+  // Configuración de la aplicación
   private settings(): void {
     this.app.set('port', this.port || process.env.PORT || 4000);
   }
 
+  // Configuración de middlewares
+  private middlewares(): void {
+    this.app.use(morgan('dev'));
+    this.app.use(express.json()); // leer JSON raw
+    this.app.use(express.urlencoded({ extended: false })); // leer formularios
+  }
 
-  // Start the server
+  // Iniciar servidor
   async listen() {
     await this.app.listen(this.app.get('port'));
-    console.log('Server on port', this.app.get('port'));
+    console.log('✅ Server on port', this.app.get('port'));
   }
 }
