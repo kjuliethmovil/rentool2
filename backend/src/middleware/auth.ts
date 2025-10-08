@@ -16,7 +16,7 @@ import { RoleUser } from "../models/authorization/RoleUser";
 import { pathToRegexp } from "path-to-regexp";
 
 // Middleware principal
-export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+/* export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.header("Authorization")?.replace("Bearer ", "");
   const currentRoute = req.originalUrl;
   const currentMethod = req.method;
@@ -48,7 +48,13 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
   } catch (error: any) {
     res.status(401).json({ error: "Token inválido o expirado.", details: error.message });
   }
+}; */
+
+export const authMiddleware = (req: any, res: any, next: any) => {
+  console.log("⚠️ authMiddleware desactivado temporalmente (modo desarrollo)");
+  next();
 };
+
 
 // Función auxiliar para validar permisos
 export const validateAuthorization = async (
