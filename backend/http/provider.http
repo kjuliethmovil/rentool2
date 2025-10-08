@@ -1,0 +1,27 @@
+### GET all providers
+GET http://localhost:3000/api/providers
+
+### GET provider by ID
+GET http://localhost:3000/api/providers/1
+
+### POST create provider
+POST http://localhost:3000/api/providers
+Content-Type: application/json
+
+{
+  "name": "Proveedor XYZ",
+  "contact": "Carlos Gómez",
+  "email": "proveedor@xyz.com",
+  "phone": "3219876543"
+}
+
+### PATCH update provider
+PATCH http://localhost:3000/api/providers/1
+Content-Type: application/json
+
+{
+  "email": "nuevo@xyz.com"
+}
+
+### DELETE provider
+DELETE http://localhost:3000/api/providers/1

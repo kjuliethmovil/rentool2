@@ -1,0 +1,28 @@
+### GET all maintenances
+GET http://localhost:3000/api/maintenances
+
+### GET maintenance by ID
+GET http://localhost:3000/api/maintenances/1
+
+### POST create maintenance
+POST http://localhost:3000/api/maintenances
+Content-Type: application/json
+
+{
+  "equipment_id": 1,
+  "date": "2025-10-08",
+  "description": "Cambio de broca y limpieza general",
+  "cost": 80000,
+  "status": "COMPLETED"
+}
+
+### PATCH update maintenance
+PATCH http://localhost:3000/api/maintenances/1
+Content-Type: application/json
+
+{
+  "status": "IN_PROGRESS"
+}
+
+### DELETE maintenance
+DELETE http://localhost:3000/api/maintenances/1

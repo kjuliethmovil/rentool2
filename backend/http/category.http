@@ -1,0 +1,25 @@
+### GET all categories
+GET http://localhost:3000/api/categories
+
+### GET category by ID
+GET http://localhost:3000/api/categories/1
+
+### POST create category
+POST http://localhost:3000/api/categories
+Content-Type: application/json
+
+{
+  "name": "Herramientas Eléctricas",
+  "description": "Equipos eléctricos para construcción"
+}
+
+### PATCH update category
+PATCH http://localhost:3000/api/categories/1
+Content-Type: application/json
+
+{
+  "description": "Herramientas eléctricas industriales"
+}
+
+### DELETE category
+DELETE http://localhost:3000/api/categories/1

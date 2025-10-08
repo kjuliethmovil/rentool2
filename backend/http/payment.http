@@ -1,0 +1,29 @@
+### GET all payments
+GET http://localhost:3000/api/payments
+
+### GET payment by ID
+GET http://localhost:3000/api/payments/1
+
+### POST create payment
+POST http://localhost:3000/api/payments
+Content-Type: application/json
+
+{
+  "contract_id": 1,
+  "payment_date": "2025-10-08",
+  "amount": 100000,
+  "method": "TRANSFER",
+  "status": "PAID",
+  "reference": "TRX987654"
+}
+
+### PATCH update payment
+PATCH http://localhost:3000/api/payments/1
+Content-Type: application/json
+
+{
+  "status": "FAILED"
+}
+
+### DELETE payment
+DELETE http://localhost:3000/api/payments/1

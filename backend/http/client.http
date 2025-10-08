@@ -1,0 +1,30 @@
+### GET all clients
+GET http://localhost:3000/api/clients
+
+### GET client by ID
+GET http://localhost:3000/api/clients/1
+
+### POST create client
+POST http://localhost:3000/api/clients
+Content-Type: application/json
+
+{
+  "name": "Juan Pérez",
+  "email": "juan@example.com",
+  "phone": "3001234567",
+  "status": "ACTIVE"
+}
+
+### PATCH update client
+PATCH http://localhost:3000/api/clients/1
+Content-Type: application/json
+
+{
+  "phone": "3007654321"
+}
+
+### DELETE client (physical)
+DELETE http://localhost:3000/api/clients/1
+
+### DELETE client (logical)
+DELETE http://localhost:3000/api/clients/1/logic

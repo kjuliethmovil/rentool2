@@ -1,0 +1,27 @@
+### GET all returns
+GET http://localhost:3000/api/returns
+
+### GET return by ID
+GET http://localhost:3000/api/returns/1
+
+### POST create return
+POST http://localhost:3000/api/returns
+Content-Type: application/json
+
+{
+  "contract_id": 1,
+  "return_date": "2025-10-15",
+  "condition": "GOOD",
+  "notes": "Sin daños visibles"
+}
+
+### PATCH update return
+PATCH http://localhost:3000/api/returns/1
+Content-Type: application/json
+
+{
+  "condition": "DAMAGED"
+}
+
+### DELETE return
+DELETE http://localhost:3000/api/returns/1

@@ -1,0 +1,27 @@
+### GET all deliveries
+GET http://localhost:3000/api/deliveries
+
+### GET delivery by ID
+GET http://localhost:3000/api/deliveries/1
+
+### POST create delivery
+POST http://localhost:3000/api/deliveries
+Content-Type: application/json
+
+{
+  "contract_id": 1,
+  "delivery_date": "2025-10-09",
+  "status": "DELIVERED",
+  "notes": "Entrega realizada sin novedades"
+}
+
+### PATCH update delivery
+PATCH http://localhost:3000/api/deliveries/1
+Content-Type: application/json
+
+{
+  "status": "IN_TRANSIT"
+}
+
+### DELETE delivery
+DELETE http://localhost:3000/api/deliveries/1

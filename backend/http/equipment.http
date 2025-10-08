@@ -1,0 +1,28 @@
+### GET all equipments
+GET http://localhost:3000/api/equipments
+
+### GET equipment by ID
+GET http://localhost:3000/api/equipments/1
+
+### POST create equipment
+POST http://localhost:3000/api/equipments
+Content-Type: application/json
+
+{
+  "category_id": 1,
+  "name": "Taladro Industrial",
+  "description": "Taladro percutor de alta potencia",
+  "daily_rate": 45000,
+  "availability": "AVAILABLE"
+}
+
+### PATCH update equipment
+PATCH http://localhost:3000/api/equipments/1
+Content-Type: application/json
+
+{
+  "availability": "UNAVAILABLE"
+}
+
+### DELETE equipment
+DELETE http://localhost:3000/api/equipments/1

@@ -1,0 +1,26 @@
+### GET all warranties
+GET http://localhost:3000/api/warranties
+
+### GET warranty by ID
+GET http://localhost:3000/api/warranties/1
+
+### POST create warranty
+POST http://localhost:3000/api/warranties
+Content-Type: application/json
+
+{
+  "contract_detail_id": 1,
+  "description": "Garantía de motor por 30 días",
+  "status": "ACTIVE"
+}
+
+### PATCH update warranty
+PATCH http://localhost:3000/api/warranties/1
+Content-Type: application/json
+
+{
+  "status": "EXPIRED"
+}
+
+### DELETE warranty
+DELETE http://localhost:3000/api/warranties/1
