@@ -6,8 +6,8 @@
  */
 
 import { Request, Response } from "express";
-import { User } from "../models/authorization/User";
-import { RefreshToken } from "../models/authorization/RefreshToken";
+import { User } from "../../models/authorization/User";
+import { RefreshToken } from "../../models/authorization/RefreshToken";
 
 export class AuthController {
   // Registro de usuario

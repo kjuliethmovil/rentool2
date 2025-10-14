@@ -6,7 +6,7 @@
  */
 
 import { Request, Response } from "express";
-import { RoleUser } from "../models/authorization/RoleUser";
+import { RoleUser } from "../../models/authorization/RoleUser";
 
 export class RoleUserController {
   public async assignRole(req: Request, res: Response) {

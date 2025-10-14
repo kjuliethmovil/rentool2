@@ -6,7 +6,7 @@
  */
 
 import { Application } from "express";
-import { AuthController } from "../controllers/auth.controller";
+import { AuthController } from "../controllers/authorization/auth.controller";
 
 export class AuthRoutes {
   public authController: AuthController = new AuthController();

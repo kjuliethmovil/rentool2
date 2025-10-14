@@ -1,0 +1,26 @@
+### GET all resources
+GET http://localhost:3000/api/resources
+#Authorization: Bearer {{token}}
+
+### CREATE resource
+POST http://localhost:3000/api/resources
+#Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "clients",
+  "description": "Access to client management module"
+}
+
+### UPDATE resource
+PATCH http://localhost:3000/api/resources/1
+#Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "description": "Updated description for clients resource"
+}
+
+### DELETE resource
+DELETE http://localhost:3000/api/resources/1
+#Authorization: Bearer {{token}}

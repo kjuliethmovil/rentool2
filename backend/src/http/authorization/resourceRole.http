@@ -1,0 +1,18 @@
+### GET all resource-role relations
+GET http://localhost:3000/api/resource_role
+#Authorization: Bearer {{token}}
+
+### ASSIGN resource to role
+POST http://localhost:3000/api/resource_role
+#Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "roleId": 1,
+  "resourceId": 1,
+  "permissions": ["CREATE", "READ", "UPDATE", "DELETE"]
+}
+
+### DELETE resource-role relation
+DELETE http://localhost:3000/api/resource_role/1
+#Authorization: Bearer {{token}}

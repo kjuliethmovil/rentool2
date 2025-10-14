@@ -1,0 +1,30 @@
+### GET all roles
+GET http://localhost:3000/api/roles
+#Authorization: Bearer {{token}}
+
+### GET role by ID
+GET http://localhost:3000/api/roles/1
+#Authorization: Bearer {{token}}
+
+### CREATE role
+POST http://localhost:3000/api/roles
+#Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "ADMIN",
+  "description": "Administrator role with full permissions"
+}
+
+### UPDATE role
+PATCH http://localhost:3000/api/roles/1
+#Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "description": "Updated admin description"
+}
+
+### DELETE role (physical)
+DELETE http://localhost:3000/api/roles/1
+#Authorization: Bearer {{token}}
