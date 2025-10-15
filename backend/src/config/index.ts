@@ -3,7 +3,7 @@
  * Autor: Karyn Movil Estacio
  * Fecha: 14/10/2025
  * Descripción: Configuración principal de la aplicación Express para Rentool2.
- * Adaptado según las buenas prácticas del profesor, con verificación de conexión a la base de datos
+ * con verificación de conexión a la base de datos
  * y registro completo de módulos de rutas.
  */
 

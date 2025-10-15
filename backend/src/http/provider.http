@@ -1,6 +1,6 @@
 ### provider.http – Proveedores de equipos Rentool
 @baseUrl = http://localhost:4000
-
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ### Listar todos los proveedores
 GET {{baseUrl}}/api/providers
 
@@ -32,6 +32,7 @@ Content-Type: application/json
 
 ### Eliminar proveedor físicamente
 DELETE {{baseUrl}}/api/providers/1
-
+Authorization: Bearer {{token}}
 ### Eliminar proveedor lógicamente
 DELETE {{baseUrl}}/api/providers/1/logic
+Authorization: Bearer {{token}}

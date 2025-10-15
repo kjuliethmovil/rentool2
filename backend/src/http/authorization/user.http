@@ -12,17 +12,18 @@ POST {{baseUrl}}/api/users
 Content-Type: application/json
 
 {
-  "username": "operario1",
-  "email": "operario1@rentool.com",
+  "username": "operario2",
+  "email": "operario2@rentool.com",
   "password": "123456",
   "is_active": "ACTIVE",
-  "avatar": "user1.png"
+  "avatar": "user2.png"
 }
+
 
 ### ================== RUTAS CON TOKEN ==================
 
 ### Obtener usuario por ID
-GET {{baseUrl}}/api/users/1
+GET {{baseUrl}}/api/users/8
 Authorization: Bearer {{token}}
 
 ### Actualizar usuario
