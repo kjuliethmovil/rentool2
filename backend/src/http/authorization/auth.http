@@ -1,23 +1,45 @@
-### LOGIN user
-POST http://localhost:3000/api/auth/login
+### auth.http – Autenticación y gestión de sesión en Rentool
+@baseUrl = http://localhost:4000
+# @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+### ================== RUTAS SIN AUTENTICACIÓN ==================
+
+### 🔹 Registrar un nuevo usuario en el sistema
+POST {{baseUrl}}/api/auth/register
 Content-Type: application/json
 
 {
-  "email": "admin@example.com",
+  "username": "admin",
+  "email": "admin@rentool.com",
+  "password": "123456",
+  "avatar": "avatar1.jpg"
+}
+
+### 🔹 Iniciar sesión (obtiene el token de acceso y refresh token)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@rentool.com",
   "password": "123456"
 }
 
-### REGISTER new user
-POST http://localhost:3000/api/auth/register
+---
+
+### ================== RUTAS CON AUTENTICACIÓN ==================
+
+### 🔹 Renovar el token de acceso usando el refresh token
+POST {{baseUrl}}/api/auth/refresh
 Content-Type: application/json
 
 {
-  "name": "Karyn Movil",
-  "email": "karyn@example.com",
-  "password": "123456",
-  "roleId": 1
+  "refreshToken": "pega_aquí_tu_refresh_token_generado_en_login"
 }
 
-### VERIFY token
-GET http://localhost:3000/api/auth/verify
-#Authorization: Bearer {{token}}
+### 🔹 Cerrar sesión e invalidar el refresh token actual
+POST {{baseUrl}}/api/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "pega_aquí_tu_refresh_token_generado_en_login"
+}

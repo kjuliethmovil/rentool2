@@ -1,25 +1,34 @@
-### GET all categories
-GET http://localhost:3000/api/categories
+### category.http – Categorías de equipos Rentool
+@baseUrl = http://localhost:4000
 
-### GET category by ID
-GET http://localhost:3000/api/categories/1
+### Consultar todas las categorías
+GET {{baseUrl}}/api/categories
 
-### POST create category
-POST http://localhost:3000/api/categories
+### Consultar categoría por ID
+GET {{baseUrl}}/api/categories/1
+
+### Crear una nueva categoría
+POST {{baseUrl}}/api/categories
 Content-Type: application/json
 
 {
-  "name": "Herramientas Eléctricas",
-  "description": "Equipos eléctricos para construcción"
+  "name": "Herramientas eléctricas",
+  "description": "Equipos utilizados para tareas de construcción o mantenimiento",
+  "is_active": "ACTIVE"
 }
 
-### PATCH update category
-PATCH http://localhost:3000/api/categories/1
+### Actualizar categoría
+PATCH {{baseUrl}}/api/categories/1
 Content-Type: application/json
 
 {
-  "description": "Herramientas eléctricas industriales"
+  "name": "Herramientas industriales",
+  "description": "Actualización de descripción para equipos de uso profesional",
+  "is_active": "ACTIVE"
 }
 
-### DELETE category
-DELETE http://localhost:3000/api/categories/1
+### Eliminar categoría físicamente
+DELETE {{baseUrl}}/api/categories/1
+
+### Eliminar categoría lógicamente
+DELETE {{baseUrl}}/api/categories/1/logic

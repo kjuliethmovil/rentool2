@@ -36,4 +36,5 @@ ResourceRole.init(
     sequelize,
     timestamps: false,
   }
+  
 );

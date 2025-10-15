@@ -8,11 +8,13 @@
 import { Application } from "express";
 
 // Importación de rutas del módulo de autorización
-import { AuthRoutes } from "./auth.routes";
-import { RoleRoutes } from "./role.routes";
-import { RoleUserRoutes } from "./role_user.routes";
-import { ResourceRoutes } from "./resource.routes";
-import { ResourceRoleRoutes } from "./resourceRole.routes";
+import { AuthRoutes } from "./authorization/auth.routes";
+import { UserRoutes } from "./authorization/user.routes";
+import { RoleRoutes } from "./authorization/role.routes";
+import { RoleUserRoutes } from "./authorization/role_user.routes";
+import { ResourceRoutes } from "./authorization/resource.routes";
+import { ResourceRoleRoutes } from "./authorization/resource_role";
+import { RefreshTokenRoutes } from "./authorization/refresh_token.routes";
 
 // Importación de rutas de las entidades principales
 import { ClientRoutes } from "./client.routes";
@@ -30,10 +32,12 @@ import { MaintenanceRoutes } from "./maintenance.routes";
 export class Routes {
   // Instanciación de todas las rutas
   public authRoutes: AuthRoutes = new AuthRoutes();
-  public roleRoutes: RoleRoutes = new RoleRoutes();
-  public roleUserRoutes: RoleUserRoutes = new RoleUserRoutes();
-  public resourceRoutes: ResourceRoutes = new ResourceRoutes();
-  public resourceRoleRoutes: ResourceRoleRoutes = new ResourceRoleRoutes();
+   public userRoutes = new UserRoutes();
+  public roleRoutes = new RoleRoutes();
+  public roleUserRoutes = new RoleUserRoutes();
+  public resourceRoutes = new ResourceRoutes();
+  public resourceRoleRoutes = new ResourceRoleRoutes();
+  public refreshTokenRoutes = new RefreshTokenRoutes();
 
   public clientRoutes: ClientRoutes = new ClientRoutes();
   public providerRoutes: ProviderRoutes = new ProviderRoutes();

@@ -1,26 +1,35 @@
-### GET all warranties
-GET http://localhost:3000/api/warranties
+### warranty.http – Garantías de equipos Rentool
+@baseUrl = http://localhost:4000
 
-### GET warranty by ID
-GET http://localhost:3000/api/warranties/1
+### Consultar todas las garantías
+GET {{baseUrl}}/api/warranties
 
-### POST create warranty
-POST http://localhost:3000/api/warranties
+### Consultar garantía por ID
+GET {{baseUrl}}/api/warranties/1
+
+### Crear garantía
+POST {{baseUrl}}/api/warranties
 Content-Type: application/json
 
 {
-  "contract_detail_id": 1,
-  "description": "Garantía de motor por 30 días",
+  "equipment_id": 1,
+  "contract_id": 1,
+  "start_date": "2025-10-15",
+  "end_date": "2025-10-20",
+  "description": "Cobertura por daño eléctrico menor",
   "status": "ACTIVE"
 }
 
-### PATCH update warranty
-PATCH http://localhost:3000/api/warranties/1
+### Actualizar garantía
+PATCH {{baseUrl}}/api/warranties/1
 Content-Type: application/json
 
 {
-  "status": "EXPIRED"
+  "description": "Cobertura extendida de mantenimiento preventivo"
 }
 
-### DELETE warranty
-DELETE http://localhost:3000/api/warranties/1
+### Eliminar físicamente
+DELETE {{baseUrl}}/api/warranties/1
+
+### Eliminar lógicamente
+DELETE {{baseUrl}}/api/warranties/1/logic

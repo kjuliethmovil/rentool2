@@ -1,30 +1,42 @@
-### GET all roles
-GET http://localhost:3000/api/roles
-#Authorization: Bearer {{token}}
+### role.http – Administración de roles del sistema Rentool
+@baseUrl = http://localhost:4000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
-### GET role by ID
-GET http://localhost:3000/api/roles/1
-#Authorization: Bearer {{token}}
+### ================== RUTAS SIN TOKEN ==================
 
-### CREATE role
-POST http://localhost:3000/api/roles
-#Authorization: Bearer {{token}}
+### Consultar todos los roles
+GET {{baseUrl}}/api/roles
+
+### Consultar rol por ID
+GET {{baseUrl}}/api/roles/1
+
+### Crear rol
+POST {{baseUrl}}/api/roles
 Content-Type: application/json
 
 {
-  "name": "ADMIN",
-  "description": "Administrator role with full permissions"
+  "name": "Técnico",
+  "description": "Encargado de mantenimiento y control de equipos",
+  "is_active": "ACTIVE"
 }
 
-### UPDATE role
-PATCH http://localhost:3000/api/roles/1
-#Authorization: Bearer {{token}}
+### ================== RUTAS CON TOKEN ==================
+
+### Actualizar rol
+PATCH {{baseUrl}}/api/roles/1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "description": "Updated admin description"
+  "name": "Técnico Principal",
+  "description": "Responsable de mantenimientos y verificaciones finales",
+  "is_active": "ACTIVE"
 }
 
-### DELETE role (physical)
-DELETE http://localhost:3000/api/roles/1
-#Authorization: Bearer {{token}}
+### Eliminar rol físicamente
+DELETE {{baseUrl}}/api/roles/1
+Authorization: Bearer {{token}}
+
+### Eliminar rol lógicamente
+DELETE {{baseUrl}}/api/roles/1/logic
+Authorization: Bearer {{token}}

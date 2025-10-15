@@ -1,27 +1,36 @@
-### GET all returns
-GET http://localhost:3000/api/returns
+### returns.http – Devoluciones de equipos Rentool
+@baseUrl = http://localhost:4000
 
-### GET return by ID
-GET http://localhost:3000/api/returns/1
+### Consultar todas las devoluciones
+GET {{baseUrl}}/api/returns
 
-### POST create return
-POST http://localhost:3000/api/returns
+### Consultar devolución por ID
+GET {{baseUrl}}/api/returns/1
+
+### Registrar devolución
+POST {{baseUrl}}/api/returns
 Content-Type: application/json
 
 {
   "contract_id": 1,
-  "return_date": "2025-10-15",
-  "condition": "GOOD",
-  "notes": "Sin daños visibles"
+  "equipment_id": 1,
+  "return_date": "2025-10-20",
+  "condition": "Óptimo",
+  "observations": "Sin daños ni retrasos",
+  "status": "CLOSED"
 }
 
-### PATCH update return
-PATCH http://localhost:3000/api/returns/1
+### Actualizar devolución
+PATCH {{baseUrl}}/api/returns/1
 Content-Type: application/json
 
 {
-  "condition": "DAMAGED"
+  "observations": "Pequeños rayones, requiere limpieza",
+  "status": "REVIEWED"
 }
 
-### DELETE return
-DELETE http://localhost:3000/api/returns/1
+### Eliminar físicamente
+DELETE {{baseUrl}}/api/returns/1
+
+### Eliminar lógicamente
+DELETE {{baseUrl}}/api/returns/1/logic

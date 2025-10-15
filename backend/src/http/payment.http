@@ -1,29 +1,34 @@
-### GET all payments
-GET http://localhost:3000/api/payments
+### payment.http – Pagos y abonos Rentool
+@baseUrl = http://localhost:4000
 
-### GET payment by ID
-GET http://localhost:3000/api/payments/1
+### Consultar todos los pagos
+GET {{baseUrl}}/api/payments
 
-### POST create payment
-POST http://localhost:3000/api/payments
+### Consultar pago por ID
+GET {{baseUrl}}/api/payments/1
+
+### Registrar nuevo pago
+POST {{baseUrl}}/api/payments
 Content-Type: application/json
 
 {
   "contract_id": 1,
-  "payment_date": "2025-10-08",
-  "amount": 100000,
-  "method": "TRANSFER",
-  "status": "PAID",
-  "reference": "TRX987654"
+  "amount": 175000,
+  "payment_date": "2025-10-15",
+  "method": "TRANSFERENCIA",
+  "status": "COMPLETED"
 }
 
-### PATCH update payment
-PATCH http://localhost:3000/api/payments/1
+### Actualizar pago
+PATCH {{baseUrl}}/api/payments/1
 Content-Type: application/json
 
 {
-  "status": "FAILED"
+  "status": "CONFIRMED"
 }
 
-### DELETE payment
-DELETE http://localhost:3000/api/payments/1
+### Eliminar físicamente
+DELETE {{baseUrl}}/api/payments/1
+
+### Eliminar lógicamente
+DELETE {{baseUrl}}/api/payments/1/logic

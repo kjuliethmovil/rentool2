@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon src/server.ts --exec ts-node"
+    "dev": "nodemon src/server.ts --exec ts-node",
+    "start": "node dist/server.js",
+    "populate": "ts-node src/faker/populate_data.ts"
   },
   "keywords": [],
   "author": "",

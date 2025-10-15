@@ -1,28 +1,37 @@
-### GET all contracts
-GET http://localhost:3000/api/contracts
+### contract.http – Contratos de arriendo Rentool
+@baseUrl = http://localhost:4000
 
-### GET contract by ID
-GET http://localhost:3000/api/contracts/1
+### Consultar todos los contratos
+GET {{baseUrl}}/api/contracts
 
-### POST create contract
-POST http://localhost:3000/api/contracts
+### Consultar contrato por ID
+GET {{baseUrl}}/api/contracts/1
+
+### Crear contrato
+POST {{baseUrl}}/api/contracts
 Content-Type: application/json
 
 {
   "client_id": 1,
-  "start_date": "2025-10-08",
-  "end_date": "2025-10-15",
-  "total_amount": 200000,
+  "start_date": "2025-10-15",
+  "end_date": "2025-10-20",
+  "total_days": 5,
+  "total_amount": 175000,
   "status": "ACTIVE"
 }
 
-### PATCH update contract
-PATCH http://localhost:3000/api/contracts/1
+### Actualizar contrato
+PATCH {{baseUrl}}/api/contracts/1
 Content-Type: application/json
 
 {
-  "status": "COMPLETED"
+  "end_date": "2025-10-22",
+  "total_days": 7,
+  "total_amount": 245000
 }
 
-### DELETE contract
-DELETE http://localhost:3000/api/contracts/1
+### Eliminar contrato físicamente
+DELETE {{baseUrl}}/api/contracts/1
+
+### Eliminar contrato lógicamente
+DELETE {{baseUrl}}/api/contracts/1/logic

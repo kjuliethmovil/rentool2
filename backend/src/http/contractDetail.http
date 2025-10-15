@@ -1,0 +1,36 @@
+### contractDetail.http – Detalle de contratos Rentool
+@baseUrl = http://localhost:4000
+
+### Consultar detalles de contrato
+GET {{baseUrl}}/api/contract-details
+
+### Consultar detalle por ID
+GET {{baseUrl}}/api/contract-details/1
+
+### Crear detalle de contrato
+POST {{baseUrl}}/api/contract-details
+Content-Type: application/json
+
+{
+  "contract_id": 1,
+  "equipment_id": 1,
+  "days": 5,
+  "rate": 35000,
+  "subtotal": 175000,
+  "is_active": "ACTIVE"
+}
+
+### Actualizar detalle
+PATCH {{baseUrl}}/api/contract-details/1
+Content-Type: application/json
+
+{
+  "days": 6,
+  "subtotal": 210000
+}
+
+### Eliminar detalle físicamente
+DELETE {{baseUrl}}/api/contract-details/1
+
+### Eliminar detalle lógicamente
+DELETE {{baseUrl}}/api/contract-details/1/logic

@@ -1,0 +1,30 @@
+/**
+ * Archivo: src/routes/authorization/resource_role.routes.ts
+ * Autor: Karyn Movil Estacio
+ * Fecha: 14/10/2025
+ * Descripción: Rutas para la relación entre recursos y roles (control de permisos).
+ */
+
+import { Application } from "express";
+import { ResourceRoleController } from "../../controllers/authorization/resourceRole.controller";
+
+export class ResourceRoleRoutes {
+  public resourceRoleController: ResourceRoleController = new ResourceRoleController();
+
+  public routes(app: Application): void {
+    // ================== RUTAS SIN AUTENTICACIÓN ==================
+    app.route("/api/resource-roles")
+      .get(this.resourceRoleController.getAllResourceRoles)
+      .post(this.resourceRoleController.createResourceRole);
+
+    app.route("/api/resource-roles/:id")
+      .get(this.resourceRoleController.getResourceRoleById)
+      .patch(this.resourceRoleController.updateResourceRole)
+      .delete(this.resourceRoleController.deleteResourceRole);
+
+    app.route("/api/resource-roles/:id/logic")
+      .delete(this.resourceRoleController.deleteResourceRoleAdv);
+
+    // ================== RUTAS CON AUTENTICACIÓN ==================
+  }
+}

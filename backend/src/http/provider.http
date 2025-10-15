@@ -1,27 +1,37 @@
-### GET all providers
-GET http://localhost:3000/api/providers
+### provider.http – Proveedores de equipos Rentool
+@baseUrl = http://localhost:4000
 
-### GET provider by ID
-GET http://localhost:3000/api/providers/1
+### Listar todos los proveedores
+GET {{baseUrl}}/api/providers
 
-### POST create provider
-POST http://localhost:3000/api/providers
+### Consultar proveedor por ID
+GET {{baseUrl}}/api/providers/1
+
+### Crear proveedor
+POST {{baseUrl}}/api/providers
 Content-Type: application/json
 
 {
-  "name": "Proveedor XYZ",
-  "contact": "Carlos Gómez",
-  "email": "proveedor@xyz.com",
-  "phone": "3219876543"
+  "name": "Proveedor Central Tools",
+  "nit": "901456789-1",
+  "address": "Cra 12 #45-67",
+  "phone": "3205558899",
+  "email": "contacto@centraltools.com",
+  "is_active": "ACTIVE"
 }
 
-### PATCH update provider
-PATCH http://localhost:3000/api/providers/1
+### Actualizar proveedor
+PATCH {{baseUrl}}/api/providers/1
 Content-Type: application/json
 
 {
-  "email": "nuevo@xyz.com"
+  "phone": "3201112233",
+  "email": "soporte@centraltools.com",
+  "is_active": "ACTIVE"
 }
 
-### DELETE provider
-DELETE http://localhost:3000/api/providers/1
+### Eliminar proveedor físicamente
+DELETE {{baseUrl}}/api/providers/1
+
+### Eliminar proveedor lógicamente
+DELETE {{baseUrl}}/api/providers/1/logic

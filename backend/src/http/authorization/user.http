@@ -1,0 +1,44 @@
+### user.http – Gestión de usuarios dentro del sistema Rentool
+@baseUrl = http://localhost:4000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+### ================== RUTAS SIN TOKEN ==================
+
+### Consultar todos los usuarios
+GET {{baseUrl}}/api/users
+
+### Registrar nuevo usuario
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+  "username": "operario1",
+  "email": "operario1@rentool.com",
+  "password": "123456",
+  "is_active": "ACTIVE",
+  "avatar": "user1.png"
+}
+
+### ================== RUTAS CON TOKEN ==================
+
+### Obtener usuario por ID
+GET {{baseUrl}}/api/users/1
+Authorization: Bearer {{token}}
+
+### Actualizar usuario
+PATCH {{baseUrl}}/api/users/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "username": "operario_modificado",
+  "is_active": "ACTIVE"
+}
+
+### Eliminar físicamente
+DELETE {{baseUrl}}/api/users/1
+Authorization: Bearer {{token}}
+
+### Eliminar lógicamente
+DELETE {{baseUrl}}/api/users/1/logic
+Authorization: Bearer {{token}}

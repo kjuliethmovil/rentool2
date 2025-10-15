@@ -1,26 +1,45 @@
-### GET all resources
-GET http://localhost:3000/api/resources
-#Authorization: Bearer {{token}}
+### resource.http – Rutas protegidas (recursos) del sistema Rentool
+@baseUrl = http://localhost:4000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
-### CREATE resource
-POST http://localhost:3000/api/resources
-#Authorization: Bearer {{token}}
+### ================== RUTAS SIN TOKEN ==================
+
+### Listar recursos registrados
+GET {{baseUrl}}/api/resources
+
+### Crear recurso
+POST {{baseUrl}}/api/resources
 Content-Type: application/json
 
 {
-  "name": "clients",
-  "description": "Access to client management module"
+  "path": "/api/equipments",
+  "method": "GET",
+  "description": "Consulta de todos los equipos disponibles",
+  "is_active": "ACTIVE"
 }
 
-### UPDATE resource
-PATCH http://localhost:3000/api/resources/1
-#Authorization: Bearer {{token}}
+### ================== RUTAS CON TOKEN ==================
+
+### Obtener recurso por ID
+GET {{baseUrl}}/api/resources/1
+Authorization: Bearer {{token}}
+
+### Modificar recurso
+PATCH {{baseUrl}}/api/resources/1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "description": "Updated description for clients resource"
+  "path": "/api/equipments/:id",
+  "method": "PATCH",
+  "description": "Modificación de equipo individual",
+  "is_active": "ACTIVE"
 }
 
-### DELETE resource
-DELETE http://localhost:3000/api/resources/1
-#Authorization: Bearer {{token}}
+### Eliminar físicamente
+DELETE {{baseUrl}}/api/resources/1
+Authorization: Bearer {{token}}
+
+### Eliminar lógicamente
+DELETE {{baseUrl}}/api/resources/1/logic
+Authorization: Bearer {{token}}

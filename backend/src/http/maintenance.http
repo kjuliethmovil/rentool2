@@ -1,28 +1,35 @@
-### GET all maintenances
-GET http://localhost:3000/api/maintenances
+### maintenance.http – Mantenimiento de equipos Rentool
+@baseUrl = http://localhost:4000
 
-### GET maintenance by ID
-GET http://localhost:3000/api/maintenances/1
+### Consultar mantenimientos registrados
+GET {{baseUrl}}/api/maintenances
 
-### POST create maintenance
-POST http://localhost:3000/api/maintenances
+### Consultar mantenimiento por ID
+GET {{baseUrl}}/api/maintenances/1
+
+### Registrar nuevo mantenimiento
+POST {{baseUrl}}/api/maintenances
 Content-Type: application/json
 
 {
   "equipment_id": 1,
-  "date": "2025-10-08",
-  "description": "Cambio de broca y limpieza general",
-  "cost": 80000,
+  "maintenance_date": "2025-10-14",
+  "description": "Revisión de motor y limpieza general",
+  "cost": 50000,
   "status": "COMPLETED"
 }
 
-### PATCH update maintenance
-PATCH http://localhost:3000/api/maintenances/1
+### Actualizar mantenimiento
+PATCH {{baseUrl}}/api/maintenances/1
 Content-Type: application/json
 
 {
-  "status": "IN_PROGRESS"
+  "description": "Cambio de escobillas y prueba funcional",
+  "status": "CONFIRMED"
 }
 
-### DELETE maintenance
-DELETE http://localhost:3000/api/maintenances/1
+### Eliminar físicamente
+DELETE {{baseUrl}}/api/maintenances/1
+
+### Eliminar lógicamente
+DELETE {{baseUrl}}/api/maintenances/1/logic

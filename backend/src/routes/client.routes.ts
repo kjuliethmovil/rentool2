@@ -14,7 +14,10 @@ export class ClientRoutes {
 
   public routes(app: Application): void {
     // Obtener todos los clientes activos
-    app.route("/api/clients").get(authMiddleware, this.clientController.getAllClients);
+    app.route("/api/clients").get(this.clientController.getAllClients);
+   // app.route("/api/clients").get(authMiddleware, this.clientController.getAllClients);
+
+
 
     // Obtener cliente por ID
     app.route("/api/clients/:id").get(authMiddleware, this.clientController.getClientById);
