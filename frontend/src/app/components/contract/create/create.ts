@@ -41,7 +41,7 @@ export class ContractCreate {
   onSubmit() {
     if (this.contractForm.valid) {
       const newContract: ContractI = this.contractForm.value;
-      this.contractService.addContract(newContract);
+      this.contractService.createContract(newContract);
       this.router.navigate(['/contract/getall']);
     }
   }

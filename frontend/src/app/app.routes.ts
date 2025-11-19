@@ -7,6 +7,10 @@
 
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard';
+import { Login } from './components/auth/login/login';
+import { Register } from './components/auth/register/register';
+import { AuthGuard } from './guards/authguard';
+
 
 
 // Importación de componentes de Clientes
@@ -66,63 +70,79 @@ import { PaymentUpdate } from './components/payment/update/update';
 
 export const routes: Routes = [
   // Rutas de Clientes
-  { path: 'clientes', component: ClientGetall },
-  { path: 'clientes/nuevo', component: ClientCreate },
-  { path: 'clientes/editar/:id', component: ClientUpdate },
+  { path: 'clientes', component: ClientGetall, canActivate: [AuthGuard] },
+  { path: 'clientes/nuevo', component: ClientCreate, canActivate: [AuthGuard] },
+  { path: 'clientes/editar/:id', component: ClientUpdate, canActivate: [AuthGuard] },
 
   // Rutas de Proveedores
-  { path: 'proveedores', component: ProviderGetall },
-  { path: 'proveedores/nuevo', component: ProviderCreate },
-  { path: 'proveedores/editar/:id', component: ProviderUpdate },
+  { path: 'proveedores', component: ProviderGetall, canActivate: [AuthGuard] },
+  { path: 'proveedores/nuevo', component: ProviderCreate, canActivate: [AuthGuard] },
+  { path: 'proveedores/editar/:id', component: ProviderUpdate, canActivate: [AuthGuard] },
 
   // Rutas de Equipos
-  { path: 'equipos', component: EquipmentGetall },
-  { path: 'equipos/nuevo', component: EquipmentCreate },
-  { path: 'equipos/editar/:id', component: EquipmentUpdate },
+  { path: 'equipos', component: EquipmentGetall, canActivate: [AuthGuard] },
+  { path: 'equipos/nuevo', component: EquipmentCreate, canActivate: [AuthGuard] },
+  { path: 'equipos/editar/:id', component: EquipmentUpdate, canActivate: [AuthGuard] },
 
   // Rutas de Categorías
-  { path: 'categorias', component: CategoryGetall },
-  { path: 'categorias/nuevo', component: CreateCategory },
-  { path: 'categorias/editar/:id', component: UpdateCategory },
+  { path: 'categorias', component: CategoryGetall, canActivate: [AuthGuard] },
+  { path: 'categorias/nuevo', component: CreateCategory, canActivate: [AuthGuard] },
+  { path: 'categorias/editar/:id', component: UpdateCategory, canActivate: [AuthGuard] },
 
   // Rutas de Mantenimientos
-  { path: 'mantenimientos', component: MaintenanceGetall },
-  { path: 'mantenimientos/nuevo', component: MaintenanceCreate },
-  { path: 'mantenimientos/editar/:id', component: MaintenanceUpdate },
+  { path: 'mantenimientos', component: MaintenanceGetall, canActivate: [AuthGuard] },
+  { path: 'mantenimientos/nuevo', component: MaintenanceCreate, canActivate: [AuthGuard] },
+  { path: 'mantenimientos/editar/:id', component: MaintenanceUpdate, canActivate: [AuthGuard] },
 
   // Rutas de Contratos
-  { path: 'contratos', component: ContractGetall },
-  { path: 'contratos/nuevo', component: ContractCreate },
-  { path: 'contratos/editar/:id', component: ContractUpdate },
+  { path: 'contratos', component: ContractGetall, canActivate: [AuthGuard] },
+  { path: 'contratos/nuevo', component: ContractCreate, canActivate: [AuthGuard] },
+  { path: 'contratos/editar/:id', component: ContractUpdate, canActivate: [AuthGuard] },
 
   // Rutas de Detalle de Contrato
-  { path: 'detalles-contrato', component: ContractDetailGetall },
-  { path: 'detalles-contrato/nuevo', component: ContractDetailCreate },
-  { path: 'detalles-contrato/editar/:id', component: ContractDetailUpdate },
+  { path: 'detalles-contrato', component: ContractDetailGetall, canActivate: [AuthGuard] },
+  { path: 'detalles-contrato/nuevo', component: ContractDetailCreate, canActivate: [AuthGuard] },
+  { path: 'detalles-contrato/editar/:id', component: ContractDetailUpdate, canActivate: [AuthGuard] },
 
   // Rutas de Garantías
-  { path: 'garantias', component: WarrantyGetall },
-  { path: 'garantias/nuevo', component: WarrantyCreate },
-  { path: 'garantias/editar/:id', component: WarrantyUpdate },
+  { path: 'garantias', component: WarrantyGetall, canActivate: [AuthGuard] },
+  { path: 'garantias/nuevo', component: WarrantyCreate, canActivate: [AuthGuard] },
+  { path: 'garantias/editar/:id', component: WarrantyUpdate, canActivate: [AuthGuard] },
 
   // Rutas de Entregas
-  { path: 'entregas', component: DeliveryGetall },
-  { path: 'entregas/nuevo', component: DeliveryCreate },
-  { path: 'entregas/editar/:id', component: DeliveryUpdate },
+  { path: 'entregas', component: DeliveryGetall, canActivate: [AuthGuard] },
+  { path: 'entregas/nuevo', component: DeliveryCreate, canActivate: [AuthGuard] },
+  { path: 'entregas/editar/:id', component: DeliveryUpdate, canActivate: [AuthGuard] },
 
   // Rutas de Devoluciones
-  { path: 'devoluciones', component: ReturnsGetall },
-  { path: 'devoluciones/nuevo', component: ReturnsCreate },
-  { path: 'devoluciones/editar/:id', component: ReturnsUpdate },
+  { path: 'devoluciones', component: ReturnsGetall, canActivate: [AuthGuard] },
+  { path: 'devoluciones/nuevo', component: ReturnsCreate, canActivate: [AuthGuard] },
+  { path: 'devoluciones/editar/:id', component: ReturnsUpdate, canActivate: [AuthGuard] },
 
   // Rutas de Pagos
-  { path: 'pagos', component: PaymentGetall },
-  { path: 'pagos/nuevo', component: PaymentCreate },
-  { path: 'pagos/editar/:id', component: PaymentUpdate },
+  { path: 'pagos', component: PaymentGetall, canActivate: [AuthGuard] },
+  { path: 'pagos/nuevo', component: PaymentCreate, canActivate: [AuthGuard] },
+  { path: 'pagos/editar/:id', component: PaymentUpdate, canActivate: [AuthGuard] },
+
+  // Rutas de Autenticación
+  {
+     path: "login",
+     component: Login
+  },
+  {
+    path: "register",
+    component: Register
+  },
+  {
+    path: "**",
+    redirectTo: "login",
+    pathMatch: "full"
+  },
 
   // Redirección por defecto
   { path: '', component: DashboardComponent, pathMatch: 'full' },
 
   // Wildcard para rutas no encontradas
-  { path: '**', component: DashboardComponent }
+  //{ path: '**', component: DashboardComponent }
+
 ];

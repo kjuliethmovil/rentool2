@@ -1,35 +1,103 @@
-// =====================================================
-// Archivo: header.ts
-// Autor: Karyn Movil
-// Fecha: 2025-09-30
-// Descripción: Componente del encabezado principal (Header)
-// =====================================================
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
+import { OverlayBadge } from 'primeng/overlaybadge';
+import { TieredMenu } from 'primeng/tieredmenu';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth';
+import { Subscription } from 'rxjs';
 
-import { Component } from '@angular/core';
-import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-header',
-  imports: [NgIf],
+  standalone: true,
+  imports: [CommonModule, OverlayBadge, TieredMenu],
   templateUrl: './header.html',
-  styleUrl: './header.css'
+  styleUrls: ['./header.css']
 })
-export class Header {
-  // Variables para controlar la visibilidad de los modales
-  showLogin = false;
-  showHelp = false;
-  showExit = false;
+export class Header implements OnInit, OnDestroy {
+  items: MenuItem[] = [];
+  isLoggedIn = false;
+  private authSubscription?: Subscription;
 
-  // Métodos para abrir/cerrar los modales
-  toggleLogin() {
-    this.showLogin = !this.showLogin;
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
+    this.updateMenuItems();
+    // Escuchar cambios en el estado de autenticación
+    this.authSubscription = this.authService.authState$.subscribe(() => {
+      this.updateMenuItems();
+    });
   }
 
-  toggleHelp() {
-    this.showHelp = !this.showHelp;
+  ngOnDestroy() {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
   }
 
-  toggleExit() {
-    this.showExit = !this.showExit;
+  private updateMenuItems(): void {
+    this.isLoggedIn = this.authService.isLoggedIn();
+
+    if (this.isLoggedIn) {
+      this.items = [
+        {
+          label: 'Configuración',
+          icon: 'pi pi-cog',
+          command: () => {
+            console.log('Configuración clicked');
+          }
+        },
+        {
+          label: 'Información',
+          icon: 'pi pi-info-circle',
+          command: () => {
+            console.log('Información clicked');
+          }
+        },
+        {
+          separator: true
+        },
+        {
+          label: 'Cerrar sesión',
+          icon: 'pi pi-sign-out',
+          command: () => {
+            this.logout();
+          }
+        }
+      ];
+    } else {
+      this.items = [
+        {
+          label: 'Iniciar sesión',
+          icon: 'pi pi-sign-in',
+          command: () => {
+            this.goToLogin();
+          }
+        },
+        {
+          label: 'Registrarse',
+          icon: 'pi pi-user-plus',
+          command: () => {
+            this.goToRegister();
+          }
+        }
+      ];
+    }
   }
 
+  private logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  private goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
+  private goToRegister(): void {
+    this.router.navigate(['/register']);
+  }
 }

@@ -10,3 +10,9 @@ export interface CategoryI {
   name: string;
   description: string;
 }
+
+export interface CategoryResponseI {
+  category_id: number;
+  name: string;
+  description: string;
+}

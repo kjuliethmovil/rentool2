@@ -7,11 +7,11 @@
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf],
+  imports: [FormsModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })

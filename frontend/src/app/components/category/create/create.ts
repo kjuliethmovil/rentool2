@@ -41,7 +41,7 @@ export class CreateCategory {
   onSubmit() {
     if (this.categoryForm.valid) {
       const newCategory: CategoryI = this.categoryForm.value;
-      this.categoryService.addCategory(newCategory);
+      this.categoryService.createCategory(newCategory);
       this.router.navigate(['/category/getall']); // Redirige a la tabla
     }
   }

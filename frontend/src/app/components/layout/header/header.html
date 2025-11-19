@@ -1,77 +1,43 @@
-<!-- Encabezado del sistema Rentool -->
-<header class="bg-blue-700 dark:bg-gray-900 text-white flex items-center justify-between px-6 py-5 shadow-lg">
-  
-  <!-- Logo a la izquierda -->
-  <div class="flex items-center space-x-2">
-    <img src="/logo2.png" alt="Rentool Logo" class="flex h-20 w-20">
-  </div>
+<!-- CONTENEDOR PRINCIPAL DEL HEADER -->
+<header class="w-full bg-white shadow-md px-6 py-4 flex items-center justify-between">
 
-  <!-- Nombre centrado con eslogan -->
-  <div class="text-center">
-    <h1 class="text-6xl font-bold tracking-wide">Rentool</h1>
-    <p class="text-1xl text-gray-200 italic">Tu aliado en arriendos de equipos</p>
-  </div>
-
-  <!-- Iconos a la derecha con texto debajo -->
-  <div class="flex space-x-8">
-    <!-- Iniciar Sesión -->
-    <div class="flex flex-col items-center">
-      <button (click)="toggleLogin()" class="hover:text-yellow-300 text-2xl">
-        <i class="pi pi-sign-in"></i>
-      </button>
-      <span class="text-xs mt-1">Iniciar</span>
+    <!-- LOGO A LA IZQUIERDA -->
+    <div class="flex items-center gap-3">
+        <img 
+          src="/logo1.png"
+          alt="Rentool Logo"
+          class="w-15 h-15 object-contain"
+        />
     </div>
 
-    <!-- Ayuda -->
-    <div class="flex flex-col items-center">
-      <button (click)="toggleHelp()" class="hover:text-green-300 text-2xl">
-        <i class="pi pi-question-circle"></i>
-      </button>
-      <span class="text-xs mt-1">Ayuda</span>
+    <!-- NOMBRE CENTRADO -->
+    <div class="flex-1 text-center">
+        <h1 class="text-2xl font-bold text-gray-800 tracking-wide">
+            RENTOOL
+        </h1>
     </div>
 
-    <!-- Salida -->
-    <div class="flex flex-col items-center">
-      <button (click)="toggleExit()" class="hover:text-red-300 text-2xl">
-        <i class="pi pi-sign-out"></i>
-      </button>
-      <span class="text-xs mt-1">Salir</span>
+    <!-- BOTONES A LA DERECHA -->
+    <div class="flex items-center gap-2">
+
+        <!-- NOTIFICACIONES -->
+        <button type="button" 
+            class="text-orange-500 bg-gray-100 hover:bg-gray-200 rounded shadow hover:shadow-lg flex items-center justify-center w-10 h-10">
+            <p-overlaybadge value="2">
+                <i class="pi pi-bell text-2xl"></i>
+            </p-overlaybadge>
+        </button>
+
+        <!-- MENÚ DE USUARIO -->
+        <button type="button"
+            class="text-orange-500 bg-gray-100 hover:bg-gray-200 rounded shadow hover:shadow-lg w-10 h-10 flex items-center justify-center"
+            (click)="menu.toggle($event)">
+            <i class="pi pi-users text-xl"></i>
+        </button>
+
     </div>
-  </div>
+
 </header>
-<!-- ==================== MODALES ==================== -->
 
-<!-- Modal Iniciar Sesión -->
-<div *ngIf="showLogin" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-  <div class="bg-white rounded-lg shadow-lg w-80 p-6 text-gray-800">
-    <h2 class="text-xl font-bold mb-4">Iniciar Sesión</h2>
-    <form class="space-y-3">
-      <input type="text" placeholder="Usuario" class="w-full border rounded px-3 py-2">
-      <input type="password" placeholder="Contraseña" class="w-full border rounded px-3 py-2">
-      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Entrar</button>
-    </form>
-    <button (click)="toggleLogin()" class="mt-4 text-sm text-blue-600 hover:underline">Cerrar</button>
-  </div>
-</div>
-
-<!-- Modal Ayuda -->
-<div *ngIf="showHelp" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-  <div class="bg-white rounded-lg shadow-lg w-80 p-6 text-gray-800">
-    <h2 class="text-xl font-bold mb-4">Ayuda</h2>
-    <p class="text-sm">
-      Bienvenido a Rentool.  
-      Usa el menú lateral para navegar entre Clientes, Equipos, Contratos y Pagos.  
-      Haz clic en los íconos para acceder a más funciones.
-    </p>
-    <button (click)="toggleHelp()" class="mt-4 text-sm text-blue-600 hover:underline">Cerrar</button>
-  </div>
-</div>
-
-<!-- Modal Salida -->
-<div *ngIf="showExit" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-  <div class="bg-white rounded-lg shadow-lg w-96 p-8 text-center text-gray-800">
-    <h2 class="text-3xl font-bold mb-4 text-blue-700">Rentool</h2>
-    <p class="text-lg mb-6">¡Gracias por preferirnos!</p>
-    <button (click)="toggleExit()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cerrar</button>
-  </div>
-</div>
+<!-- MENÚ DESPLEGABLE -->
+<p-tieredmenu #menu [model]="items" [popup]="true"></p-tieredmenu>

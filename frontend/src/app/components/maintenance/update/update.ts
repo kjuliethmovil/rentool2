@@ -42,7 +42,7 @@ export class MaintenanceUpdate implements OnInit {
 
   ngOnInit(): void {
     this.maintenanceId = Number(this.route.snapshot.paramMap.get('id'));
-    const maintenance = this.maintenanceService.getMaintenances().find(m => m.maintenance_id === this.maintenanceId);
+    const maintenance = this.maintenanceService.getAllMaintenances.apply((m: { maintenance_id: number; }) => m.maintenance_id === this.maintenanceId);
 
     if (maintenance) {
       this.maintenanceForm.patchValue(maintenance);

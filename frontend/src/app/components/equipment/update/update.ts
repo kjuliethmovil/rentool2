@@ -44,11 +44,12 @@ export class EquipmentUpdate implements OnInit {
   ngOnInit(): void {
     this.equipmentId = Number(this.route.snapshot.paramMap.get('id'));
 
-    const equipment = this.equipmentService.getEquipments().find(e => e.equipment_id === this.equipmentId);
+    //const equipment = this.equipmentService.getEquipments().find(e => e.equipment_id === this.equipmentId);
 
-    if (equipment) {
+   /*  if (equipment) {
       this.equipmentForm.patchValue(equipment);
     }
+   */
   }
 
   onSubmit() {

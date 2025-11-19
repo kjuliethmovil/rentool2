@@ -41,8 +41,9 @@ export class MaintenanceCreate {
   onSubmit() {
     if (this.maintenanceForm.valid) {
       const newMaintenance: MaintenanceI = this.maintenanceForm.value;
-      this.maintenanceService.addMaintenance(newMaintenance);
-      this.router.navigate(['/maintenance/getall']);
+      this.maintenanceService.createMaintenance(newMaintenance).subscribe(() => {
+        this.router.navigate(['/maintenance/getall']);
+      });
     }
   }
 }

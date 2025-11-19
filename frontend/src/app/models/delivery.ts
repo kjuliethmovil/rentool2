@@ -13,3 +13,11 @@ export interface DeliveryI {
   status: "PENDING" | "DELIVERED" | "CANCELLED";
   notes: string;
 }
+
+export interface DeliveryResponseI {
+  delivery_id: number;
+  contract_id: number;
+  date: Date;
+  address: string;
+  notes: string;
+}

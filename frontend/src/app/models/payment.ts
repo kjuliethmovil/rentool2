@@ -14,3 +14,11 @@ export interface PaymentI {
   status: "PENDING" | "PAID" | "FAILED";
   reference: string;
 }
+
+export interface PaymentResponseI {
+  payment_id: number;
+  contract_id: number;
+  payment_date: Date;
+  amount: number;
+  reference: string;
+}

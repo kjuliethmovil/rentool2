@@ -1,55 +1,70 @@
-/**
- * Archivo: category.ts
- * Autor: Karyn Movil Estacio
- * Fecha: 2025-10-02
- * Descripción: Servicio para gestionar categorías (CategoryI) con datos simulados en memoria.
- */
-
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { CategoryI } from '../models/category';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { CategoryI} from '../models/category';
+import { AuthService } from './auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
-   // Estado inicial con algunos datos de ejemplo
-  private categoriesService = new BehaviorSubject<CategoryI[]>([
-    {
-      category_id: 1,
-      name: 'Herramientas eléctricas',
-      description: 'Taladros, sierras, pulidoras y más'
-    },
-    {
-      category_id: 2,
-      name: 'Herramientas manuales',
-      description: 'Martillos, destornilladores, llaves, etc.'
+  private baseUrl = 'http://localhost:4000/api/categories';
+  private categoriesSubject = new BehaviorSubject<CategoryI[]>([]);
+  public categories$ = this.categoriesSubject.asObservable();
+
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
+
+  private getHeaders(): HttpHeaders {
+    let headers = new HttpHeaders();
+    const token = this.authService.getToken();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
     }
-  ]);
-
-  categories$ = this.categoriesService.asObservable();
-
-  // Obtener todas las categorías
-  getCategories() {
-    return this.categoriesService.value;
-  }
-
-  // Agregar nueva categoría
-  addCategory(category: CategoryI) {
-    const categories = this.categoriesService.value;
-    category.category_id = categories.length
-      ? Math.max(...categories.map(c => c.category_id ?? 0)) + 1
-      : 1;
-    this.categoriesService.next([...categories, category]);
-  }
-    // Actualizar categoría existente
-  updateCategory(updatedCategory: CategoryI) {
-    const categories = this.categoriesService.value.map(category =>
-      category.category_id === updatedCategory.category_id ? updatedCategory : category
-    );
-    this.categoriesService.next(categories);
+    return headers;
   }
 
 
+  getAllCategories(): Observable<CategoryI[]> {
+    return this.http.get<CategoryI[]>(this.baseUrl, { headers: this.getHeaders() })
+    // .pipe(
+    //   tap(response => {
+    //       // console.log('Fetched categories:', response);
+    //     })
+    // )
+    ;
+  }
+
+  getCategoryById(id: number): Observable<CategoryI> {
+    return this.http.get<CategoryI>(`${this.baseUrl}/${id}`, { headers: this.getHeaders() });
+  }
+
+  createCategory(category: CategoryI): Observable<CategoryI> {
+    return this.http.post<CategoryI>(this.baseUrl, category, { headers: this.getHeaders() });
+  }
+
+  updateCategory( category: CategoryI): Observable<CategoryI> {
+    return this.http.patch<CategoryI>(`${this.baseUrl}/${category.category_id}`, category, { headers: this.getHeaders() });
+  }
+
+  deleteCategory(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers: this.getHeaders() });
+  }
+
+  deleteCategoryLogic(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}/logic`, { headers: this.getHeaders() });
+  }
+
+  // Método para actualizar el estado local de categories
+  updateLocalCategories(categories: CategoryI[]): void {
+    this.categoriesSubject.next(categories);
+  }
+
+  refreshCategories(): void {
+    this.getAllCategories().subscribe(categories => {
+      this.categoriesSubject.next(categories);
+    });
+  }
 }

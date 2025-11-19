@@ -42,7 +42,7 @@ export class ContractDetailCreate {
   onSubmit() {
     if (this.detailForm.valid) {
       const newDetail: ContractDetailI = this.detailForm.value;
-      this.contractDetailService.addContractDetail(newDetail);
+      this.contractDetailService.createContractDetail(newDetail);
       this.router.navigate(['/contract-detail/getall']);
     }
   }

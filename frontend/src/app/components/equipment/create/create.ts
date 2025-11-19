@@ -42,7 +42,7 @@ export class EquipmentCreate {
   onSubmit() {
     if (this.equipmentForm.valid) {
       const newEquipment: EquipmentI = this.equipmentForm.value;
-      this.equipmentService.addEquipment(newEquipment);
+      this.equipmentService.createEquipment(newEquipment);
       this.router.navigate(['/equipment/getall']);
     }
   }

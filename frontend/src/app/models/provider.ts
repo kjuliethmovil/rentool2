@@ -12,3 +12,11 @@ export interface ProviderI {
   phone: string;
   address: string;
 }
+
+export interface ProviderResponseI {
+  provider_id: number;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}

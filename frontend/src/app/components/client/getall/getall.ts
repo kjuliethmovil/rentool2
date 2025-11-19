@@ -12,21 +12,81 @@ import { ClientI } from '../../../models/client';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 import { ClientService } from '../../../services/client';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-getall',
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, RouterModule],
+  imports: [CommonModule, TableModule, ButtonModule, RouterModule, ConfirmDialogModule, ToastModule],
   templateUrl: './getall.html',
   styleUrls: ['./getall.css'],
   encapsulation: ViewEncapsulation.None,
+  providers: [ConfirmationService, MessageService]
 })
 export class ClientGetall {
   clients: ClientI[] = [];
 
-  constructor(private clientService: ClientService) {
-    this.clientService.clients$.subscribe(clients => {
-      this.clients = clients;
+  loading: boolean = false;
+
+  constructor(
+    private clientService: ClientService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadClients();
+  }
+
+  loadClients(): void {
+    this.loading = true;
+    this.clientService.getAllClients().subscribe({
+      next: (clients) => {
+        this.clients = clients;
+        this.clientService.updateLocalClients(clients);
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error loading clients:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error al cargar los clientes'
+        });
+        this.loading = false;
+      }
+    });
+  }
+
+  deleteClient(client: ClientI): void {
+    this.confirmationService.confirm({
+      message: `¿Está seguro de eliminar el cliente ${client.last_name}?`,
+      header: 'Confirmar eliminación',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        if (client.client_id) {
+          this.clientService.deleteClient(client.client_id).subscribe({
+            next: () => {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Éxito',
+                detail: 'Cliente eliminado correctamente'
+              });
+              this.loadClients();
+            },
+            error: (error) => {
+              console.error('Error deleting client:', error);
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Error al eliminar el cliente'
+              });
+            }
+          });
+        }
+      }
     });
   }
 

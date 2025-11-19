@@ -13,3 +13,12 @@ export interface MaintenanceI {
   cost: number;
   status: "PENDING" | "COMPLETED" | "IN_PROGRESS";
 }
+
+export interface MaintenanceResponseI {
+  maintenance_id: number;
+  equipment_id: number;
+  date: Date;
+  description: string;
+  cost: number;
+}
+  

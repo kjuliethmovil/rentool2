@@ -6,41 +6,72 @@
  */
 
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { DeliveryI } from '../models/delivery';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { AuthService } from './auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeliveryService {
-  private deliveriesService = new BehaviorSubject<DeliveryI[]>([
-    {
-      delivery_id: 1,
-      contract_id: 1,
-      date: new Date('2025-01-02'),
-      address: 'Calle 789, Ciudad',
-      status: 'PENDING',
-      notes: 'Entrega programada para el cliente 1'
+  private baseUrl = 'http://localhost:4000/api/deliveries';
+  private deliveriesSubject = new BehaviorSubject<DeliveryI[]>([]);
+  public deliveries$ = this.deliveriesSubject.asObservable();
+
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
+
+  private getHeaders(): HttpHeaders {
+    let headers = new HttpHeaders();
+    const token = this.authService.getToken();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
     }
-  ]);
-
-  deliveries$ = this.deliveriesService.asObservable();
-
-  getDeliveries() {
-    return this.deliveriesService.value;
+    return headers;
   }
 
-  addDelivery(delivery: DeliveryI) {
-    const deliveries = this.deliveriesService.value;
-    delivery.delivery_id = deliveries.length
-      ? Math.max(...deliveries.map(d => d.delivery_id ?? 0)) + 1
-      : 1;
-    this.deliveriesService.next([...deliveries, delivery]);
+
+  getAllDeliveries(): Observable<DeliveryI[]> {
+    return this.http.get<DeliveryI[]>(this.baseUrl, { headers: this.getHeaders() })
+    // .pipe(
+    //   tap(response => {
+    //       // console.log('Fetched deliveries:', response);
+    //     })
+    // )
+    ;
   }
-  updateDelivery(updatedDelivery: DeliveryI) {
-    const deliveries = this.deliveriesService.value.map(d =>
-      d.delivery_id === updatedDelivery.delivery_id ? updatedDelivery : d
-    );
-    this.deliveriesService.next(deliveries);
+
+  getDeliveryById(id: number): Observable<DeliveryI> {
+    return this.http.get<DeliveryI>(`${this.baseUrl}/${id}`, { headers: this.getHeaders() });
+  }
+
+  createDelivery(delivery: DeliveryI): Observable<DeliveryI> {
+    return this.http.post<DeliveryI>(this.baseUrl, delivery, { headers: this.getHeaders() });
+  }
+
+  updateDelivery(delivery: DeliveryI): Observable<DeliveryI> {
+    return this.http.patch<DeliveryI>(`${this.baseUrl}/${delivery.delivery_id}`, delivery, { headers: this.getHeaders() });
+  }
+
+  deleteDelivery(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers: this.getHeaders() });
+  }
+
+  deleteDeliveryLogic(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}/logic`, { headers: this.getHeaders() });
+  }
+
+  // Método para actualizar el estado local de deliveries
+  updateLocalDeliveries(deliveries: DeliveryI[]): void {
+    this.deliveriesSubject.next(deliveries);
+  }
+
+  refreshDeliveries(): void {
+    this.getAllDeliveries().subscribe(deliveries => {
+      this.deliveriesSubject.next(deliveries);
+    });
   }
 }

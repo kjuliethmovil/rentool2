@@ -2,7 +2,7 @@
   Archivo: dashboard.component.html
   Autor: Karyn Movil Estacio
   Fecha: 2025-10-02
-  Descripción: Dashboard con resumen, disponibilidad y formulario de contratos
+  Descripción: Dashboard sin *ngFor para pruebas de diseño
 -->
 
 <div class="p-8 space-y-10">
@@ -13,34 +13,43 @@
     <!-- RESUMEN -->
     <div class="space-y-6">
       <h2 class="text-2xl font-bold text-red-600">Resumen</h2>
+
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
         <!-- Entregas / Devoluciones -->
         <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl shadow p-4">
           <h3 class="font-semibold mb-2">Entregas / Devoluciones</h3>
           <ul class="space-y-1 text-sm">
-            <li *ngFor="let d of deliveries">{{ d.date }} - {{ d.item }}</li>
+            <li>2025-01-01 - Martillo Demo</li>
+            <li>2025-01-02 - Taladro Bosch</li>
           </ul>
         </div>
+
         <!-- Pagos -->
         <div class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl shadow p-4">
           <h3 class="font-semibold mb-2">Pagos</h3>
           <ul class="space-y-1 text-sm">
-            <li *ngFor="let p of payments">{{ p.date }} - ${{ p.amount }}</li>
+            <li>Cliente Juan Pérez - $40.000</li>
+            <li>Cliente Ana Gómez - $25.000</li>
           </ul>
         </div>
+
         <!-- Daños -->
         <div class="bg-gradient-to-r from-yellow-500 to-orange-600 text-white rounded-xl shadow p-4">
           <h3 class="font-semibold mb-2">Daños</h3>
           <ul class="space-y-1 text-sm">
-            <li *ngFor="let d of damages">{{ d.item }} - {{ d.note }}</li>
+            <li>Compresor - Manguera rota</li>
+            <li>Generador - Golpe lateral</li>
           </ul>
         </div>
+
       </div>
     </div>
 
     <!-- DISPONIBILIDAD -->
     <div>
       <h2 class="text-2xl font-bold text-blue-600 mb-4">Disponibilidad por Categoría</h2>
+
       <div class="overflow-x-auto rounded-lg shadow bg-white dark:bg-gray-800">
         <table class="w-full text-left text-sm">
           <thead class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 uppercase">
@@ -49,10 +58,21 @@
               <th class="p-3">Equipos Disponibles</th>
             </tr>
           </thead>
+
           <tbody>
-            <tr *ngFor="let cat of categories" class="border-b hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td class="p-3">{{ cat.name }}</td>
-              <td class="p-3">{{ cat.available }}</td>
+            <tr class="border-b hover:bg-gray-50 dark:hover:bg-gray-600">
+              <td class="p-3">Construcción</td>
+              <td class="p-3">12</td>
+            </tr>
+
+            <tr class="border-b hover:bg-gray-50 dark:hover:bg-gray-600">
+              <td class="p-3">Eléctrica</td>
+              <td class="p-3">7</td>
+            </tr>
+
+            <tr class="border-b hover:bg-gray-50 dark:hover:bg-gray-600">
+              <td class="p-3">Hidráulica</td>
+              <td class="p-3">5</td>
             </tr>
           </tbody>
         </table>
@@ -64,39 +84,42 @@
   <!-- FORMULARIO -->
   <section>
     <h2 class="text-2xl font-bold text-green-600 mb-4">Armar Contrato</h2>
-    <form (ngSubmit)="createContract()" 
-          class="space-y-6 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg max-w-3xl mx-auto">
+
+    <form class="space-y-6 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg max-w-3xl mx-auto">
 
       <!-- Selección de equipo -->
       <div>
         <label class="block font-semibold text-gray-700 dark:text-gray-200">Equipo</label>
-        <select [(ngModel)]="contract.equipment" name="equipment" required
+        <select name="equipment"
                 class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500">
-          <option *ngFor="let eq of equipments" [value]="eq">{{ eq }}</option>
+          <option>Taladro</option>
+          <option>Compresor</option>
+          <option>Generador</option>
         </select>
       </div>
 
-      <!-- Días de alquiler -->
+      <!-- Días -->
       <div>
         <label class="block font-semibold text-gray-700 dark:text-gray-200">Días</label>
-        <input type="number" [(ngModel)]="contract.days" name="days" required min="1"
+        <input type="number" name="days" min="1"
                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500" />
       </div>
 
-      <!-- Tarifa -->
+      <!-- Tarifa diaria -->
       <div>
         <label class="block font-semibold text-gray-700 dark:text-gray-200">Tarifa diaria</label>
-        <input type="number" [(ngModel)]="contract.rate" name="rate" required min="1"
+        <input type="number" name="rate" min="1"
                class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-green-500" />
       </div>
 
       <!-- Botón -->
       <div class="text-center">
-        <button type="submit"
+        <button type="button"
           class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full shadow-lg transition-transform transform hover:scale-105">
           Crear Contrato
         </button>
       </div>
+
     </form>
   </section>
 

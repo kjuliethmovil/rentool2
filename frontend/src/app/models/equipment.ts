@@ -14,3 +14,13 @@ export interface EquipmentI {
   status: "AVAILABLE" | "UNAVAILABLE" | "MAINTENANCE";
   daily_rate: number;
 }
+
+export interface EquipmentResponseI {
+  equipment_id: number;
+  category_id: number;
+  provider_id: number;
+  name: string;
+  description: string;
+  daily_rate: number;
+}
+

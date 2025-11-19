@@ -42,11 +42,11 @@ export class DeliveryUpdate implements OnInit {
 
   ngOnInit(): void {
     this.deliveryId = Number(this.route.snapshot.paramMap.get('id'));
-    const delivery = this.deliveryService.getDeliveries().find(d => d.delivery_id === this.deliveryId);
+    /* const delivery = this.deliveryService.getDeliveries().find(d => d.delivery_id === this.deliveryId);
 
     if (delivery) {
       this.deliveryForm.patchValue(delivery);
-    }
+    } */
   }
 
   onSubmit() {

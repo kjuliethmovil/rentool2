@@ -12,3 +12,10 @@ export interface WarrantyI {
   amount: number;
   status: "ACTIVE" | "EXPIRED" | "CANCELLED";
 }
+
+export interface WarrantyResponseI {
+  warranty_id: number;
+  contract_id: number;
+  description: string;
+  amount: number;
+}

@@ -12,3 +12,11 @@ export interface ReturnsI {
   item_condition: string;
   notes: string;
 }
+
+export interface ReturnsResponseI {
+  return_id: number;
+  contract_id: number;
+  date: Date;
+  item_condition: string;
+  notes: string;
+}

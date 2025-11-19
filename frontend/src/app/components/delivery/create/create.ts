@@ -41,7 +41,7 @@ export class DeliveryCreate {
   onSubmit() {
     if (this.deliveryForm.valid) {
       const newDelivery: DeliveryI = this.deliveryForm.value;
-      this.deliveryService.addDelivery(newDelivery);
+      this.deliveryService.createDelivery(newDelivery);
       this.router.navigate(['/delivery/getall']);
     }
   }

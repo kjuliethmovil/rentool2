@@ -6,41 +6,72 @@
  */
 
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { ContractI } from '../models/contract';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, BehaviorSubject, tap } from 'rxjs';
+import { ContractI} from '../models/contract';
+import { AuthService } from './auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
-  private contractsService = new BehaviorSubject<ContractI[]>([
-    {
-      contract_id: 1,
-      client_id: 1,
-      start_date: new Date('2025-01-01'),
-      end_date: new Date('2025-01-07'),
-      total_amount: 700.0,
-      status: 'ACTIVE'
+  private baseUrl = 'http://localhost:4000/api/contracts';
+  private contractsSubject = new BehaviorSubject<ContractI[]>([]);
+  public contracts$ = this.contractsSubject.asObservable();
+
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
+
+  private getHeaders(): HttpHeaders {
+    let headers = new HttpHeaders();
+    const token = this.authService.getToken();
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
     }
-  ]);
-
-  contracts$ = this.contractsService.asObservable();
-
-  getContracts() {
-    return this.contractsService.value;
+    return headers;
   }
 
-  addContract(contract: ContractI) {
-    const contracts = this.contractsService.value;
-    contract.contract_id = contracts.length
-      ? Math.max(...contracts.map(c => c.contract_id ?? 0)) + 1
-      : 1;
-    this.contractsService.next([...contracts, contract]);
+
+  getAllContracts(): Observable<ContractI[]> {
+    return this.http.get<ContractI[]>(this.baseUrl, { headers: this.getHeaders() })
+    // .pipe(
+    //   tap(response => {
+    //       // console.log('Fetched contracts:', response);
+    //     })
+    // )
+    ;
   }
-  updateContract(updatedContract: ContractI) {
-    const contracts = this.contractsService.value.map(contract =>
-      contract.contract_id === updatedContract.contract_id ? updatedContract : contract
-    );
-    this.contractsService.next(contracts);
+
+  getContractById(id: number): Observable<ContractI> {
+    return this.http.get<ContractI>(`${this.baseUrl}/${id}`, { headers: this.getHeaders() });
+  }
+
+  createContract(contract: ContractI): Observable<ContractI> {
+    return this.http.post<ContractI>(this.baseUrl, contract, { headers: this.getHeaders() });
+  }
+
+  updateContract( contract: ContractI): Observable<ContractI> {
+    return this.http.patch<ContractI>(`${this.baseUrl}/${contract.contract_id}`, contract, { headers: this.getHeaders() });
+  }
+
+  deleteContract(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`, { headers: this.getHeaders() });
+  }
+
+  deleteContractLogic(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}/logic`, { headers: this.getHeaders() });
+  }
+
+  // Método para actualizar el estado local de contractes
+  updateLocalContracts(contracts: ContractI[]): void {
+    this.contractsSubject.next(contracts);
+  }
+
+  refreshContracts(): void {
+    this.getAllContracts().subscribe(contracts => {
+      this.contractsSubject.next(contracts);
+    });
   }
 }

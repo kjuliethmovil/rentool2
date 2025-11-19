@@ -43,11 +43,11 @@ export class ContractUpdate implements OnInit {
   ngOnInit(): void {
     this.contractId = Number(this.route.snapshot.paramMap.get('id'));
 
-    const contract = this.contractService.getContracts().find(c => c.contract_id === this.contractId);
+    /* const contract = this.contractService.getContracts().find(c => c.contract_id === this.contractId);
 
     if (contract) {
       this.contractForm.patchValue(contract);
-    }
+    } */
   }
 
   onSubmit() {

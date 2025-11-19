@@ -43,11 +43,11 @@ export class ContractDetailUpdate implements OnInit {
 
   ngOnInit(): void {
     this.detailId = Number(this.route.snapshot.paramMap.get('id'));
-    const detail = this.contractDetailService.getContractDetails().find(d => d.contract_detail_id === this.detailId);
+   /*  const detail = this.contractDetailService.getAllContractDetails().find(d => d.contract_detail_id === this.detailId);
 
     if (detail) {
       this.detailForm.patchValue(detail);
-    }
+    } */
   }
 
   onSubmit() {

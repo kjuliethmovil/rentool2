@@ -44,13 +44,13 @@ export class UpdateCategory implements OnInit {
     // Se obtiene el ID de la ruta
     this.categoryId = Number(this.route.snapshot.paramMap.get('id'));
 
-    // Se busca la categoría en el servicio
-    const category = this.categoryService.getCategories().find(c => c.category_id === this.categoryId);
+   /*  // Se busca la categoría en el servicio
+    const category = this.categoryService.getAllCategories().find(c => c.category_id === this.categoryId);
 
     if (category) {
       // Se rellenan los campos del formulario con los valores existentes
       this.categoryForm.patchValue(category);
-    }
+    } */
   }
 
   // Método para actualizar categoría

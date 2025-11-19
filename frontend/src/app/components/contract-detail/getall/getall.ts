@@ -25,7 +25,7 @@ export class ContractDetailGetall {
   contractDetails: ContractDetailI[] = [];
 
   constructor(private contractDetailService: ContractDetailService) {
-    this.contractDetailService.contractDetails$.subscribe(details => {
+    this.contractDetailService.contractdetails$.subscribe(details => {
       this.contractDetails = details;
     });
   }

@@ -14,3 +14,13 @@ export interface ContractDetailI {
   days: number;
   subtotal: number;
 }
+
+export interface ContractDetailResponseI {
+  contract_detail_id: number;
+  contract_id: number;
+  equipment_id: number;
+  quantity: number;
+  daily_rate: number;
+  days: number;
+  subtotal: number;
+}

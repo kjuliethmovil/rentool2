@@ -44,13 +44,14 @@ export class ClientUpdate implements OnInit {
     // Obtener el ID desde la ruta
     this.clientId = Number(this.route.snapshot.paramMap.get('id'));
 
-    // Buscar cliente en el servicio
-    const client = this.clientService.getClients().find(c => c.client_id === this.clientId);
-
-    if (client) {
-      this.clientForm.patchValue(client); // Rellenar el formulario
-    }
-  }
+    // Buscar cliente en el servicio (getAllClients() devuelve Observable<ClientI[]>)
+    this.clientService.getAllClients().subscribe(clients => {
+      const client = clients.find(c => c.client_id === this.clientId);
+      if (client) {
+        this.clientForm.patchValue(client); // Rellenar el formulario
+      }
+    });
+  } 
 
   // Método para actualizar cliente
   onSubmit() {
@@ -60,7 +61,7 @@ export class ClientUpdate implements OnInit {
         ...this.clientForm.value
       };
 
-      this.clientService.updateClient(updatedClient);
+      this.clientService.updateClient(this.clientId, updatedClient);
       this.router.navigate(['/client/getall']); // Redirige a la tabla
     }
   }

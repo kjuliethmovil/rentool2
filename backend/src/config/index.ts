@@ -1,18 +1,10 @@
-/**
- * Archivo: src/config/index.ts
- * Autor: Karyn Movil Estacio
- * Fecha: 14/10/2025
- * Descripción: Configuración principal de la aplicación Express para Rentool2.
- * con verificación de conexión a la base de datos
- * y registro completo de módulos de rutas.
- */
-
 import dotenv from "dotenv";
 import express, { Application } from "express";
 import morgan from "morgan";
-import cors from "cors";
 import { sequelize, testConnection, getDatabaseInfo } from "../database/connection";
 import { Routes } from "../routes/index";
+
+var cors = require("cors");
 
 dotenv.config();
 
@@ -25,36 +17,18 @@ export class App {
     this.settings();
     this.middlewares();
     this.routes();
-    this.dbConnection(); // Verifica y sincroniza la base de datos
+    this.dbConnection();
   }
 
-  // ==============================
-  // CONFIGURACIÓN BÁSICA
-  // ==============================
   private settings(): void {
-    this.app.set("port", this.port || process.env.PORT || 4000);
+    this.app.set('port', this.port || process.env.PORT || 4000);
   }
 
   private middlewares(): void {
-    // Logger
-    this.app.use(morgan("dev"));
-
-    // Configuración avanzada de CORS
-    const corsOptions = {
-      origin: "http://localhost:4200", // solo tu frontend Angular
-      methods: ["GET", "POST", "PATCH", "DELETE"],
-      allowedHeaders: ["Content-Type", "Authorization"],
-      credentials: true, // permite envío de cookies o auth headers
-      optionsSuccessStatus: 204,
-    };
-    this.app.use(cors(corsOptions));
-
-    // Para procesar JSON y formularios
+    this.app.use(morgan('dev'));
+    this.app.use(cors());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
-
-    // Middleware de auditoría de respuestas
-    this.app.use(this.responseLogger());
   }
 
   // ==============================
@@ -84,51 +58,31 @@ export class App {
     this.routePrv.refreshTokenRoutes.routes(this.app);
   }
 
-  // ==============================
-  // CONEXIÓN A LA BASE DE DATOS
-  // ==============================
-  private async dbConnection(): Promise<void> {
+ private async dbConnection(): Promise<void> {
     try {
-      // Mostrar información del motor de base de datos
+      // Mostrar información de la base de datos seleccionada
       const dbInfo = getDatabaseInfo();
-      console.log(`🔗 Intentando conectar a: ${dbInfo.engine.toUpperCase()} (${dbInfo.database})`);
+      console.log(`🔗 Intentando conectar a: ${dbInfo.engine.toUpperCase()}`);
 
-      // Probar la conexión antes de sincronizar
+      // Probar la conexión
       const isConnected = await testConnection();
 
       if (!isConnected) {
-        throw new Error(`❌ No se pudo establecer conexión con ${dbInfo.engine.toUpperCase()}`);
+        throw new Error(`No se pudo conectar a la base de datos ${dbInfo.engine.toUpperCase()}`);
       }
 
-      // Sincronizar sin eliminar datos previos
+      // Sincronizar la base de datos
       await sequelize.sync({ force: false });
-      console.log("📦 Base de datos sincronizada correctamente ✅");
+      console.log(`📦 Base de datos sincronizada exitosamente`);
 
     } catch (error) {
-      console.error("🚨 Error al conectar con la base de datos:", error);
-      process.exit(1); // Termina el proceso si no hay conexión
+      console.error("❌ Error al conectar con la base de datos:", error);
+      process.exit(1); // Terminar la aplicación si no se puede conectar
     }
   }
 
-  // ==============================
-  // INICIAR SERVIDOR
-  // ==============================
   async listen() {
-    await this.app.listen(this.app.get("port"));
-    console.log(`🚀 Servidor ejecutándose en puerto ${this.app.get("port")} ✅`);
-  }
-
-  // ==============================
-  // MIDDLEWARE DE AUDITORÍA DE RESPUESTAS
-  // ==============================
-  private responseLogger() {
-    return (req: express.Request, res: express.Response, next: express.NextFunction) => {
-      const oldSend = res.send;
-      res.send = function (body?: any): express.Response {
-        console.log(`[AUDITORÍA] ${req.method} ${req.originalUrl} - Status: ${res.statusCode}`);
-        return oldSend.call(this, body);
-      };
-      next();
-    };
+    await this.app.listen(this.app.get('port'));
+    console.log(`🚀 Servidor ejecutándose en puerto ${this.app.get('port')}`);
   }
 }

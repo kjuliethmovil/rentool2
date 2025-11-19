@@ -42,8 +42,14 @@ export class ClientCreate{
   onSubmit() {
     if (this.clientForm.valid) {
       const newClient: ClientI = this.clientForm.value;
-      this.clientService.addClient(newClient);
-      this.router.navigate(['/client/getall']); // redirige a la tabla
+      this.clientService.createClient(newClient).subscribe({
+        next: () => {
+          this.router.navigate(['/client/getall']); // redirige a la tabla
+        },
+        error: (error) => {
+          console.error('Error creating client:', error);
+        }
+      });
     }
   }
 }

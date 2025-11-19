@@ -13,3 +13,11 @@ export interface ContractI {
   total_amount: number;
   status: "ACTIVE" | "CLOSED" | "CANCELLED";
 }
+
+export interface ContractResponseI {
+  contract_id: number;
+  client_id: number;
+  start_date: Date;
+  end_date: Date;
+  total_amount: number;
+}

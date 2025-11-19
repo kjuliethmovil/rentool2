@@ -33,7 +33,7 @@ export class Aside implements OnInit {
         icon: 'pi pi-fw pi-box',
         items: [
           { label: 'Equipos', icon: 'pi pi-cog', routerLink: '/equipos' },
-          { label: 'Categorías / Disponibilidad', icon: 'pi pi-list', routerLink: '/categorias' },
+          { label: 'Categorías', icon: 'pi pi-list', routerLink: '/categorias' },
           { label: 'Mantenimientos', icon: 'pi pi-wrench', routerLink: '/mantenimientos' }
         ]
       },
